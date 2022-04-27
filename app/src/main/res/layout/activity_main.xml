@@ -4,15 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/background"
+    tools:context=".ui.activitys.MainActivity">
 
     <TextView
+        android:id="@+id/bank_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="Bank"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/information1_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="O seu banco digital"
+        android:textColor="@color/white2"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/bank_name_txt"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_txt" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="menos tarifas e mais benefícios"
+        android:textColor="@color/white2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/information1_txt"
+        app:layout_constraintTop_toBottomOf="@id/information1_txt" />
+
+    <android.widget.Button
+        android:id="@+id/login_btn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_custom"
+        android:backgroundTint="@color/white"
+        android:text="Entrar"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/register_btn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/register_btn"
+        android:layout_width="0dp"
+        android:textStyle="bold"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_custom"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/laranja"
+        android:text="Criar conta"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/login_btn"
+        app:layout_constraintTop_toTopOf="@id/login_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

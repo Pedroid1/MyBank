@@ -10,10 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBank">
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.activitys.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activitys.RegisterActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.activitys.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activitys.SplashScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activitys.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

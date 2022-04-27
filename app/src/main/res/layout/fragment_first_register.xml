@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Criar conta"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back_img" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_img" />
+
+        <TextView
+            android:id="@+id/name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="Nome completo"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/name_edt"
+            app:layout_constraintStart_toStartOf="@id/name_edt"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <EditText
+            android:id="@+id/name_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:inputType="textPersonName"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@id/cpf_txt"
+            app:layout_constraintEnd_toEndOf="@id/cpf_edt"
+            app:layout_constraintStart_toStartOf="@id/cpf_edt" />
+
+        <TextView
+            android:id="@+id/cpf_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="CPF"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/cpf_edt"
+            app:layout_constraintStart_toStartOf="@id/cpf_edt" />
+
+        <EditText
+            android:id="@+id/cpf_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:inputType="text|number"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@id/data_txt"
+            app:layout_constraintEnd_toEndOf="@id/data_edt"
+            app:layout_constraintStart_toStartOf="@id/data_edt" />
+
+        <TextView
+            android:id="@+id/data_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Data de nascimento"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/data_edt"
+            app:layout_constraintStart_toStartOf="@id/data_edt" />
+
+        <EditText
+            android:id="@+id/data_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@id/email_txt"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="@id/email_edt"
+            app:layout_constraintStart_toStartOf="@id/email_edt" />
+
+        <TextView
+            android:id="@+id/email_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Email"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/email_edt"
+            app:layout_constraintStart_toStartOf="@id/email_edt" />
+
+        <EditText
+            android:id="@+id/email_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@id/phone_txt"
+            app:layout_constraintEnd_toEndOf="@id/phone_edt"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="@id/phone_edt" />
+
+        <TextView
+            android:id="@+id/phone_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Celular"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/phone_edt"
+            app:layout_constraintStart_toStartOf="@id/phone_edt" />
+
+        <EditText
+            android:id="@+id/phone_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:inputType="phone"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@id/continue_btn"
+            app:layout_constraintEnd_toEndOf="@id/continue_btn"
+            app:layout_constraintStart_toStartOf="@id/continue_btn" />
+
+        <android.widget.Button
+            android:id="@+id/continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/btn_custom"
+            android:backgroundTint="@color/laranja"
+            android:text="Continuar"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/have_account_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/have_account_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Já tem uma conta?"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/logar_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/logar_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Entrar"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/have_account_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/have_account_txt"
+            app:layout_constraintTop_toTopOf="@id/have_account_txt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
