@@ -12,7 +12,7 @@ import com.example.mybank.model.Client;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "Clients.db";
+    private static final String DATABASE_NAME = "Client.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_NAME = "my_clients";
@@ -23,6 +23,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private  static final String COLUMN_EMAIL = "client_email";
     private  static final String COLUMN_PHONE = "client_phone";
     private  static final String COLUMN_PASSWORD = "client_password";
+
+    //ENDEREÇO
+    private  static final String COLUMN_CEP = "client_cep";
+    private  static final String COLUMN_STATE = "client_state";
+    private  static final String COLUMN_CITY = "client_city";
+    private  static final String COLUMN_DISTRICT = "client_district";
+    private  static final String COLUMN_ADDRESS = "client_address";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +46,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DATE + " TEXT, " +
                         COLUMN_EMAIL + " TEXT, " +
                         COLUMN_PHONE + " TEXT, " +
-                        COLUMN_PASSWORD + " INTEGER);";
+                        COLUMN_PASSWORD + " TEXT, " +
+                        COLUMN_CEP + " TEXT, " +
+                        COLUMN_STATE + " TEXT, " +
+                        COLUMN_CITY + " TEXT, " +
+                        COLUMN_DISTRICT + " TEXT, " +
+                        COLUMN_ADDRESS + " TEXT);";
         db.execSQL(query);
     }
 
@@ -70,6 +82,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DATE, newClient.getDate());
         cv.put(COLUMN_EMAIL, newClient.getEmail());
         cv.put(COLUMN_PHONE, newClient.getPhone());
+
+        cv.put(COLUMN_CEP, newClient.getCep());
+        cv.put(COLUMN_STATE, newClient.getState());
+        cv.put(COLUMN_CITY, newClient.getCity());
+        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
+        cv.put(COLUMN_ADDRESS, newClient.getAddress());
 
         Long result = db.insert(TABLE_NAME, null, cv);
 
@@ -102,17 +120,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public boolean updateClient(Client client) {
+    public boolean updateClient(Client newClient) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_NAME, client.getName());
-        cv.put(COLUMN_CPF, client.getCpf());
-        cv.put(COLUMN_DATE, client.getDate());
-        cv.put(COLUMN_EMAIL, client.getEmail());
-        cv.put(COLUMN_PHONE, client.getPhone());
+        cv.put(COLUMN_NAME, newClient.getName());
+        cv.put(COLUMN_CPF, newClient.getCpf());
+        cv.put(COLUMN_DATE, newClient.getDate());
+        cv.put(COLUMN_EMAIL, newClient.getEmail());
+        cv.put(COLUMN_PHONE, newClient.getPhone());
 
-        int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{client.getId().toString()});
+        cv.put(COLUMN_CEP, newClient.getCep());
+        cv.put(COLUMN_STATE, newClient.getState());
+        cv.put(COLUMN_CITY, newClient.getCity());
+        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
+        cv.put(COLUMN_ADDRESS, newClient.getAddress());
+
+        int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{newClient.getId().toString()});
         if(result == -1) {
             return false;
         } else {

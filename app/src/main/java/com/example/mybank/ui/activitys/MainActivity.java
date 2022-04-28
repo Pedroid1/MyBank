@@ -3,10 +3,12 @@ package com.example.mybank.ui.activitys;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.mybank.R;
+import com.example.mybank.database.MyDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+        MyDatabaseHelper myDB = new MyDatabaseHelper(this);
+        Cursor cursor = myDB.findClientById(1);
+        if(cursor != null) {
+            if(cursor.moveToNext()) {
+                Integer integer = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String cpf = cursor.getString(2);
+                Integer senha = cursor.getInt(6);
+                System.out.println();
+            }
+        }
+
+         */
 
         loginBtn = findViewById(R.id.login_btn);
         registerBtn = findViewById(R.id.register_btn);

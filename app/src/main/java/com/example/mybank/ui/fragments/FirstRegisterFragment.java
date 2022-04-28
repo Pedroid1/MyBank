@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentFirstRegisterBinding;
 import com.example.mybank.ui.activitys.LoginActivity;
+import com.example.mybank.ui.utils.EditTextError;
 
 public class FirstRegisterFragment extends Fragment {
 
@@ -41,22 +40,22 @@ public class FirstRegisterFragment extends Fragment {
 
             String name, cpf, date, email, phone;
             name = bind.nameEdt.getText().toString().trim();
-            cpf = bind.dataEdt.getText().toString().trim();
+            cpf = bind.cpfEdt.getText().toString().trim();
             date = bind.dataEdt.getText().toString().trim();
             email = bind.emailEdt.getText().toString().trim();
             phone = bind.phoneEdt.getText().toString().trim();
 
             if (name.isEmpty() || cpf.isEmpty() || date.isEmpty() || email.isEmpty() || phone.isEmpty()) {
                 if (name.isEmpty())
-                    setErrorEdt(bind.nameEdt);
+                    EditTextError.setEdtError(bind.nameEdt, "Campo obrigatório", requireContext());
                 if (cpf.isEmpty())
-                    setErrorEdt(bind.cpfEdt);
+                    EditTextError.setEdtError(bind.cpfEdt, "Campo obrigatório", requireContext());
                 if (date.isEmpty())
-                    setErrorEdt(bind.dataEdt);
+                    EditTextError.setEdtError(bind.dataEdt, "Campo obrigatório", requireContext());
                 if (email.isEmpty())
-                    setErrorEdt(bind.emailEdt);
+                    EditTextError.setEdtError(bind.emailEdt, "Campo obrigatório", requireContext());
                 if (phone.isEmpty())
-                    setErrorEdt(bind.phoneEdt);
+                    EditTextError.setEdtError(bind.phoneEdt, "Campo obrigatório", requireContext());
             } else {
                 viewModel.setName(name);
                 viewModel.setCpf(cpf);
@@ -104,9 +103,5 @@ public class FirstRegisterFragment extends Fragment {
         viewModel.getPhone().observe(requireActivity(), phone -> {
             bind.phoneEdt.setText(phone);
         });
-    }
-
-    private void setErrorEdt(EditText edt) {
-        edt.setError("Campo obrigatório", ActivityCompat.getDrawable(requireContext(), R.drawable.ic_error));
     }
 }

@@ -2,13 +2,29 @@ package com.example.mybank.model;
 
 public class Client {
     private Integer id;
-    private String name, cpf, date, email, phone;
-    private Integer senha;
+    private String name, cpf, date, email, phone, senha;
+    //Endereço
+    private String cep, state, city, district, address, number;
 
     public Client() {
     }
 
-    public Client(Integer id, String name, String cpf, String date, String email, String phone, Integer senha) {
+    public Client(String name, String cpf, String date, String email, String phone, String senha, String cep, String state, String city, String district, String address, String number) {
+        this.name = name;
+        this.cpf = cpf;
+        this.date = date;
+        this.email = email;
+        this.phone = phone;
+        this.senha = senha;
+        this.cep = cep;
+        this.state = state;
+        this.city = city;
+        this.district = district;
+        this.address = address;
+        this.number = number;
+    }
+
+    public Client(Integer id, String name, String cpf, String date, String email, String phone, String senha, String cep, String state, String city, String district, String address, String number) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -16,22 +32,67 @@ public class Client {
         this.email = email;
         this.phone = phone;
         this.senha = senha;
+        this.cep = cep;
+        this.state = state;
+        this.city = city;
+        this.district = district;
+        this.address = address;
+        this.number = number;
     }
 
-    public Client(String name, String cpf, String date, String email, String phone, Integer senha) {
-        this.name = name;
-        this.cpf = cpf;
-        this.date = date;
-        this.email = email;
-        this.phone = phone;
-        this.senha = senha;
+    public String getNumber() {
+        return number;
     }
 
-    public Integer getSenha() {
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(Integer senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 

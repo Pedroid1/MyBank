@@ -56,13 +56,13 @@
 
         <EditText
             android:id="@+id/senha_1_edt"
-            android:maxLength="4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:inputType="numberPassword"
+            android:maxLength="4"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,37 +83,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:padding="15dp"
-            android:maxLength="4"
             android:inputType="numberPassword"
+            android:maxLength="4"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="@id/senha_1_edt"
             app:layout_constraintStart_toStartOf="@id/senha_1_edt"
             app:layout_constraintTop_toBottomOf="@id/senha_2_txt" />
 
-        <CheckBox
-            android:id="@+id/terms_checkbox"
+        <android.widget.Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/continue_btn"
+            android:layout_height="50dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:text="Ao criar uma conta você aceita nossos termos e condições."
+            android:background="@drawable/btn_custom"
+            android:backgroundTint="@color/laranja"
+            android:text="Continuar"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/senha_2_edt"
             app:layout_constraintStart_toStartOf="@id/senha_2_edt"
             app:layout_constraintTop_toBottomOf="@id/senha_2_edt" />
-
-        <include
-            android:id="@+id/finish_btn"
-            layout="@layout/progress_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/terms_checkbox"
-            app:layout_constraintStart_toStartOf="@id/terms_checkbox"
-            app:layout_constraintTop_toBottomOf="@id/terms_checkbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

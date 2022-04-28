@@ -1,9 +1,14 @@
 package com.example.mybank.network;
 
-public class Retrofit {
+import com.google.gson.Gson;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class RetrofitInstance {
 
     private static final String BASE_URL =
-            "https://ws.apicep.com/";
+            "https://cep.awesomeapi.com.br/json/";
 
     private static Retrofit retrofit = null;
 

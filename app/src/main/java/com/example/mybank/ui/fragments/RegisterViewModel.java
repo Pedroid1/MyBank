@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mybank.model.Client;
+import com.example.mybank.model.Endereco;
 
 public class RegisterViewModel extends ViewModel {
 
     private Client client = new Client();
+    private Endereco endereco = new Endereco();
 
     private MutableLiveData<String> name = new MutableLiveData();
     private MutableLiveData<String> cpf = new MutableLiveData();
@@ -16,8 +18,38 @@ public class RegisterViewModel extends ViewModel {
     private MutableLiveData<String> email = new MutableLiveData();
     private MutableLiveData<String> phone = new MutableLiveData();
 
+    private MutableLiveData<String> cep = new MutableLiveData();
+    private MutableLiveData<String> address = new MutableLiveData();
+    private MutableLiveData<String> state = new MutableLiveData();
+    private MutableLiveData<String> district = new MutableLiveData();
+    private MutableLiveData<String> city = new MutableLiveData();
+
+    public LiveData<String> getAddress() {
+        return address;
+    }
+
+    public LiveData<String> getDistrict() {
+        return district;
+    }
+
+    public LiveData<String> getCity() {
+        return city;
+    }
+
+    public LiveData<String> getState() {
+        return state;
+    }
+
+    public LiveData<String> getCep() {
+        return cep;
+    }
+
     public Client getClient() {
         return client;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 
     public void setName(String name) {
@@ -45,7 +77,17 @@ public class RegisterViewModel extends ViewModel {
         client.setPhone(phone);
     }
 
-    public void setSenha(Integer senha) {
+    public void setEndereco(Endereco endereco) {
+        client.setCep(endereco.getCep());
+
+        cep.setValue(endereco.getCep());
+        address.setValue(endereco.getAddress());
+        city.setValue(endereco.getCity());
+        state.setValue(endereco.getState());
+        district.setValue(endereco.getDistrict());
+    }
+
+    public void setSenha(String senha) {
         client.setSenha(senha);
     }
 
