@@ -30,6 +30,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private  static final String COLUMN_CITY = "client_city";
     private  static final String COLUMN_DISTRICT = "client_district";
     private  static final String COLUMN_ADDRESS = "client_address";
+    private  static final String COLUMN_NUMBER = "client_number";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,7 +52,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_STATE + " TEXT, " +
                         COLUMN_CITY + " TEXT, " +
                         COLUMN_DISTRICT + " TEXT, " +
-                        COLUMN_ADDRESS + " TEXT);";
+                        COLUMN_ADDRESS + " TEXT, " +
+                        COLUMN_NUMBER + " TEXT);";
+
         db.execSQL(query);
     }
 
@@ -61,7 +64,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public Cursor findClientByEmailAndPassword(String email, Integer password) {
+    public Cursor findClientByEmailAndPassword(String email, String password) {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = " + email +
                 " AND " + COLUMN_PASSWORD + " = " + password;
         SQLiteDatabase db = this.getReadableDatabase();

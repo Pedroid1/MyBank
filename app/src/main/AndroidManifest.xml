@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBank">
         <activity
-            android:name=".ui.activitys.HomeActivity"
+            android:name=".ui.activitys.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activitys.RegisterActivity"

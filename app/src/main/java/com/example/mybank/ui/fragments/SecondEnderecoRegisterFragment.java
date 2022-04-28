@@ -16,10 +16,9 @@ import android.view.ViewGroup;
 import com.example.mybank.R;
 import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentSecondEnderecoRegisterBinding;
-import com.example.mybank.databinding.FragmentSecondRegisterBinding;
 import com.example.mybank.model.Client;
 import com.example.mybank.ui.ProgressButton;
-import com.example.mybank.ui.activitys.HomeActivity;
+import com.example.mybank.ui.activitys.ProfileActivity;
 import com.example.mybank.ui.utils.EditTextError;
 
 public class SecondEnderecoRegisterFragment extends Fragment {
@@ -59,6 +58,7 @@ public class SecondEnderecoRegisterFragment extends Fragment {
                 finishBtn);
 
         finishBtn.setOnClickListener(view1 -> {
+            finishBtn.setClickable(false);
             String logradouro, number, districy, city, state;
 
             logradouro = bind.logradouroEdt.getText().toString().trim();
@@ -91,10 +91,13 @@ public class SecondEnderecoRegisterFragment extends Fragment {
                     if(addClient(viewModel.getClient())) {
                         progressButton.buttonFinishedSuccess();
                         new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                            intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
-                            intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
+                            Intent intent = new Intent(requireActivity(), ProfileActivity.class);
+                            //Testar essa linha
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra(ProfileActivity.EMAIL_KEY, viewModel.getClient().getEmail());
+                            intent.putExtra(ProfileActivity.SENHA_KEY, viewModel.getClient().getSenha());
                             requireActivity().startActivity(intent);
+                            finishBtn.setClickable(true);
                             requireActivity().finish();
                         }, 2000);
                     } else {
@@ -106,7 +109,7 @@ public class SecondEnderecoRegisterFragment extends Fragment {
 
                 }, 3000);
             }
-
+            finishBtn.setClickable(true);
         });
 
     }
