@@ -59,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/cpf_txt"
             app:layout_constraintEnd_toEndOf="@id/cpf_edt"
@@ -75,16 +75,19 @@
             app:layout_constraintBottom_toTopOf="@id/cpf_edt"
             app:layout_constraintStart_toStartOf="@id/cpf_edt" />
 
-        <EditText
+        <com.santalu.maskara.widget.MaskEditText
             android:id="@+id/cpf_edt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:inputType="text|number"
+            android:inputType="number"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/data_txt"
             app:layout_constraintEnd_toEndOf="@id/data_edt"
-            app:layout_constraintStart_toStartOf="@id/data_edt" />
+            app:layout_constraintStart_toStartOf="@id/data_edt"
+            app:mask="___.___.___-__"
+            app:maskCharacter="_"
+            app:maskStyle="completable" />
 
         <TextView
             android:id="@+id/data_txt"
@@ -96,16 +99,19 @@
             app:layout_constraintBottom_toTopOf="@id/data_edt"
             app:layout_constraintStart_toStartOf="@id/data_edt" />
 
-        <EditText
+        <com.santalu.maskara.widget.MaskEditText
             android:id="@+id/data_edt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:inputType="number"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/email_txt"
-            android:inputType="date"
             app:layout_constraintEnd_toEndOf="@id/email_edt"
-            app:layout_constraintStart_toStartOf="@id/email_edt" />
+            app:layout_constraintStart_toStartOf="@id/email_edt"
+            app:mask="__/__/____"
+            app:maskCharacter="_"
+            app:maskStyle="completable" />
 
         <TextView
             android:id="@+id/email_txt"
@@ -122,10 +128,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/phone_txt"
             app:layout_constraintEnd_toEndOf="@id/phone_edt"
-            android:inputType="textEmailAddress"
             app:layout_constraintStart_toStartOf="@id/phone_edt" />
 
         <TextView
@@ -138,16 +144,19 @@
             app:layout_constraintBottom_toTopOf="@id/phone_edt"
             app:layout_constraintStart_toStartOf="@id/phone_edt" />
 
-        <EditText
+        <com.santalu.maskara.widget.MaskEditText
             android:id="@+id/phone_edt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:inputType="phone"
+            android:inputType="number"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/continue_btn"
             app:layout_constraintEnd_toEndOf="@id/continue_btn"
-            app:layout_constraintStart_toStartOf="@id/continue_btn" />
+            app:layout_constraintStart_toStartOf="@id/continue_btn"
+            app:mask="(__) _____-____"
+            app:maskCharacter="_"
+            app:maskStyle="completable" />
 
         <android.widget.Button
             android:id="@+id/continue_btn"
@@ -159,8 +168,8 @@
             android:background="@drawable/btn_custom"
             android:backgroundTint="@color/laranja"
             android:text="Continuar"
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/have_account_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -5,20 +5,23 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mybank.R;
 import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentSecondEnderecoRegisterBinding;
 import com.example.mybank.model.Client;
 import com.example.mybank.ui.ProgressButton;
-import com.example.mybank.ui.activitys.ProfileActivity;
+import com.example.mybank.ui.activitys.HomeActivity;
 import com.example.mybank.ui.utils.EditTextError;
 
 public class SecondEnderecoRegisterFragment extends Fragment {
@@ -39,13 +42,6 @@ public class SecondEnderecoRegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-    Intent intent = new Intent(Your_Current_Activity.this, Your_Destination_Activity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    startActivity(intent);
-     */
         viewModel = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
         updateUi();
         myDB = new MyDatabaseHelper(requireActivity());
@@ -67,17 +63,20 @@ public class SecondEnderecoRegisterFragment extends Fragment {
             city = bind.cityEdt.getText().toString().trim();
             state = bind.stateEdt.getText().toString().trim();
 
-            if(logradouro.isEmpty() || number.isEmpty() || districy.isEmpty() || city.isEmpty() || state.isEmpty()) {
+            if(logradouro.isEmpty() || number.isEmpty() || districy.isEmpty() || city.isEmpty() || state.isEmpty() || !bind.termsCheckbox.isChecked()) {
                 if(logradouro.isEmpty())
                     EditTextError.setEdtError(bind.logradouroEdt, "Campo obrigatório", requireContext());
-                if(number.isEmpty())
+                else if(number.isEmpty())
                     EditTextError.setEdtError(bind.numberEdt, "Campo obrigatório", requireContext());
-                if(districy.isEmpty())
+                else if(districy.isEmpty())
                     EditTextError.setEdtError(bind.districtEdt, "Campo obrigatório", requireContext());
-                if(city.isEmpty())
+                else if(city.isEmpty())
                     EditTextError.setEdtError(bind.cityEdt, "Campo obrigatório", requireContext());
-                if(state.isEmpty())
+                else if(state.isEmpty())
                     EditTextError.setEdtError(bind.stateEdt, "Campo obrigatório", requireContext());
+                else{
+                    Toast.makeText(requireContext(), "Aceite os termos", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 viewModel.getClient().setAddress(logradouro);
                 viewModel.getClient().setNumber(number);
@@ -90,13 +89,14 @@ public class SecondEnderecoRegisterFragment extends Fragment {
 
                     if(addClient(viewModel.getClient())) {
                         progressButton.buttonFinishedSuccess();
+
                         new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(requireActivity(), ProfileActivity.class);
-                            //Testar essa linha
+                            Intent intent = new Intent(requireActivity(), HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra(ProfileActivity.EMAIL_KEY, viewModel.getClient().getEmail());
-                            intent.putExtra(ProfileActivity.SENHA_KEY, viewModel.getClient().getSenha());
+                            intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
+                            intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
                             requireActivity().startActivity(intent);
+
                             finishBtn.setClickable(true);
                             requireActivity().finish();
                         }, 2000);
@@ -106,12 +106,20 @@ public class SecondEnderecoRegisterFragment extends Fragment {
                             progressButton.resetButton();
                         }, 2000);
                     }
-
                 }, 3000);
             }
             finishBtn.setClickable(true);
         });
 
+        bind.backImg.setOnClickListener(view1 -> {
+            replaceFirstEnderecoRegisterFragment();
+        });
+
+    }
+
+    private void replaceFirstEnderecoRegisterFragment() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
     }
 
     private void updateUi() {

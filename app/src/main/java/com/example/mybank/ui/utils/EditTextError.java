@@ -11,5 +11,6 @@ public class EditTextError {
 
     public static void setEdtError(EditText edt, String messageError, Context context) {
         edt.setError(messageError, ActivityCompat.getDrawable(context, R.drawable.ic_error));
+        edt.requestFocus();
     }
 }

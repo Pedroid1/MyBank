@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentFirstEnderecoRegisterBinding;
@@ -41,18 +42,17 @@ public class FirstEnderecoRegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
-
-        viewModel.getCep().observe(requireActivity(), cep -> {
-            bind.cepEdt.setText(cep);
-        });
+        updateUi();
 
         bind.continuarBtn.setOnClickListener(view1 -> {
-            String cep = bind.cepEdt.getText().toString().trim();
-
-            if(cep.isEmpty()) {
-                EditTextError.setEdtError(bind.cepEdt, "Campo obrigatório", requireContext());
-            } else {
+            if (bind.cepEdt.isDone()) {
+                String cep = bind.cepEdt.getText().toString().trim();
                 requestEndereco(cep);
+            } else {
+                if (bind.cepEdt.getText().toString().isEmpty())
+                    EditTextError.setEdtError(bind.cepEdt, "Campo obrigatório", requireContext());
+                else
+                    EditTextError.setEdtError(bind.cepEdt, "Complete o campo", requireContext());
             }
         });
 
@@ -61,13 +61,19 @@ public class FirstEnderecoRegisterFragment extends Fragment {
         });
     }
 
+    private void updateUi() {
+        viewModel.getCep().observe(requireActivity(), cep -> {
+            bind.cepEdt.setText(cep);
+        });
+    }
+
     private void replaceSecondRegisterFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
     }
 
     private void replaceSecondEnderecoRegisterFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new SecondEnderecoRegisterFragment()).commit();
     }
 
@@ -77,19 +83,20 @@ public class FirstEnderecoRegisterFragment extends Fragment {
         data.enqueue(new Callback<Endereco>() {
             @Override
             public void onResponse(Call<Endereco> call, Response<Endereco> response) {
-                if(response.isSuccessful()) {
-                    viewModel.setEndereco(response.body());
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        viewModel.setEndereco(response.body());
                     requireActivity().runOnUiThread(() -> {
                         replaceSecondEnderecoRegisterFragment();
                     });
                 } else {
-
+                    EditTextError.setEdtError(bind.cepEdt, "Cep não encontrado", requireContext());
                 }
             }
 
             @Override
             public void onFailure(Call<Endereco> call, Throwable t) {
-
+                Toast.makeText(requireContext(), "Erro ao buscar o cep", Toast.LENGTH_SHORT).show();
             }
         });
     }

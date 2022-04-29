@@ -57,6 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:inputType="text|textCapSentences"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +82,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
+            android:inputType="text|textCapSentences"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/number_txt" />
@@ -101,6 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:inputType="text|textCapSentences"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,6 +128,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
+            android:inputType="textCapSentences|text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/city_txt" />
@@ -148,6 +152,7 @@
             android:layout_marginEnd="15dp"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text|textCapSentences"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/state_txt" />
 
@@ -156,8 +161,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:text="Ao criar uma conta você aceita nossos termos e condições."
             app:layout_constraintEnd_toEndOf="@id/state_edt"
             app:layout_constraintStart_toStartOf="@id/state_edt"

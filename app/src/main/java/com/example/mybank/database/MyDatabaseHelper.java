@@ -12,7 +12,7 @@ import com.example.mybank.model.Client;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "Client.db";
+    private static final String DATABASE_NAME = "NewClientss.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_NAME = "my_clients";
@@ -64,16 +64,97 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public Cursor findClientByEmailAndPassword(String email, String password) {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = " + email +
-                " AND " + COLUMN_PASSWORD + " = " + password;
+    public boolean checkEmail(String email) {
+        String query = "SELECT " + COLUMN_EMAIL + " FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = '" + email + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if(db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        if(cursor != null) {
+            while(cursor.moveToNext()) {
+                String emailBD = cursor.getString(0);
+                if(emailBD.equals(email))
+                    return true;
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkCpf(String cpf) {
+        String query = "SELECT " + COLUMN_CPF + " FROM " + TABLE_NAME + " WHERE " + COLUMN_CPF + " = '" + cpf + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if(db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        if(cursor != null) {
+            while(cursor.moveToNext()) {
+                String cpfDB = cursor.getString(0);
+                if(cpfDB.equals(cpf))
+                    return true;
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+
+    public Client findClientByEmailAndPassword(String email, String password) {
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = '" + email + "'" +
+                " AND " + COLUMN_PASSWORD + " = '" + password + "'";
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
         if(db != null) {
             cursor = db.rawQuery(query, null);
         }
-        return cursor;
+        if(cursor != null) {
+            while (cursor.moveToNext()) {
+                Client currentClient = new Client();
+                Integer id;
+                String name, cpf, date, phone, senha;
+                //Endereço
+                String cep, state, city, district, address, number;
+
+                id = cursor.getInt(0);
+                name = cursor.getString(1);
+                cpf = cursor.getString(2);
+                date = cursor.getString(3);
+                email = cursor.getString(4);
+                phone = cursor.getString(5);
+                senha = cursor.getString(6);
+                cep = cursor.getString(7);
+                state = cursor.getString(8);
+                city = cursor.getString(9);
+                district = cursor.getString(10);
+                address = cursor.getString(11);
+                number = cursor.getString(12);
+
+                currentClient.setId(id);
+                currentClient.setName(name);
+                currentClient.setCpf(cpf);
+                currentClient.setDate(date);
+                currentClient.setEmail(email);
+                currentClient.setPhone(phone);
+                currentClient.setSenha(senha);
+                currentClient.setCep(cep);
+                currentClient.setState(state);
+                currentClient.setCity(city);
+                currentClient.setDistrict(district);
+                currentClient.setAddress(address);
+                currentClient.setNumber(number);
+                currentClient.setSenha(senha);
+                currentClient.setEmail(email);
+                return currentClient;
+            }
+        }
+        return null;
     }
 
     public boolean addClient(Client newClient) {
@@ -85,12 +166,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DATE, newClient.getDate());
         cv.put(COLUMN_EMAIL, newClient.getEmail());
         cv.put(COLUMN_PHONE, newClient.getPhone());
+        cv.put(COLUMN_PASSWORD, newClient.getSenha());
 
         cv.put(COLUMN_CEP, newClient.getCep());
         cv.put(COLUMN_STATE, newClient.getState());
         cv.put(COLUMN_CITY, newClient.getCity());
         cv.put(COLUMN_DISTRICT, newClient.getDistrict());
         cv.put(COLUMN_ADDRESS, newClient.getAddress());
+        cv.put(COLUMN_NUMBER, newClient.getName());
 
         Long result = db.insert(TABLE_NAME, null, cv);
 
@@ -113,7 +196,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor findClientById(Integer id) {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id +";";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

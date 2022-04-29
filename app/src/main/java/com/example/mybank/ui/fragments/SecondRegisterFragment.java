@@ -34,6 +34,8 @@ public class SecondRegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
 
+        updateUi();
+
         bind.continueBtn.setOnClickListener(view1 -> {
             String sSenha1, sSenha2;
             sSenha1 = bind.senha1Edt.getText().toString().trim();
@@ -42,17 +44,18 @@ public class SecondRegisterFragment extends Fragment {
             if (sSenha1.isEmpty() || sSenha2.isEmpty()) {
                 if (sSenha1.isEmpty())
                     EditTextError.setEdtError(bind.senha1Edt, "Campo obrigatório", requireContext());
-                if (sSenha2.isEmpty())
+                else
                     EditTextError.setEdtError(bind.senha2Edt, "Campo obrigatório", requireContext());
             } else {
-                if (!sSenha1.equals(sSenha2)) {
-                    EditTextError.setEdtError(bind.senha1Edt, "As senhas não correspondem!", requireContext());
-                    EditTextError.setEdtError(bind.senha2Edt, "As senhas não correspondem!", requireContext());
+                if (sSenha1.length() < 4 || sSenha2.length() < 4 ) {
+                    if(sSenha1.length() < 4)
+                        EditTextError.setEdtError(bind.senha1Edt, "A senha deve conter 4 números", requireContext());
+                    else
+                        EditTextError.setEdtError(bind.senha2Edt, "A senha deve conter 4 números", requireContext());
                 } else {
 
-                    if(sSenha1.length() < 4) {
-                        EditTextError.setEdtError(bind.senha1Edt, "A senha deve conter 4 números", requireContext());
-                        EditTextError.setEdtError(bind.senha2Edt, "A senha deve conter 4 números", requireContext());
+                    if(!sSenha1.equals(sSenha2)) {
+                        EditTextError.setEdtError(bind.senha2Edt, "As senhas não correspondem!", requireContext());
                     } else {
                         viewModel.setSenha(sSenha1);
                         replaceEnderecoRegisterFragment();
@@ -66,15 +69,21 @@ public class SecondRegisterFragment extends Fragment {
         });
     }
 
+    private void updateUi() {
+        viewModel.getSenha().observe(requireActivity(), senha -> {
+            bind.senha1Edt.setText(senha);
+            bind.senha2Edt.setText(senha);
+        });
+    }
 
 
     private void replaceFirstRegisterFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new FirstRegisterFragment()).commit();
     }
 
     private void replaceEnderecoRegisterFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
     }
 }

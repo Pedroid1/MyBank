@@ -17,12 +17,17 @@ public class RegisterViewModel extends ViewModel {
     private MutableLiveData<String> date = new MutableLiveData();
     private MutableLiveData<String> email = new MutableLiveData();
     private MutableLiveData<String> phone = new MutableLiveData();
+    private MutableLiveData<String> senha = new MutableLiveData<>();
 
     private MutableLiveData<String> cep = new MutableLiveData();
     private MutableLiveData<String> address = new MutableLiveData();
     private MutableLiveData<String> state = new MutableLiveData();
     private MutableLiveData<String> district = new MutableLiveData();
     private MutableLiveData<String> city = new MutableLiveData();
+
+    public LiveData<String> getSenha() {
+        return senha;
+    }
 
     public LiveData<String> getAddress() {
         return address;
@@ -89,6 +94,7 @@ public class RegisterViewModel extends ViewModel {
 
     public void setSenha(String senha) {
         client.setSenha(senha);
+        this.senha.setValue(senha);
     }
 
     public LiveData<String> getName() {

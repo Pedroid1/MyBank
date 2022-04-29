@@ -13,14 +13,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mybank.R;
+import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentFirstRegisterBinding;
 import com.example.mybank.ui.activitys.LoginActivity;
+import com.example.mybank.ui.utils.CpfCnpjUtils;
+import com.example.mybank.ui.utils.StringUtils;
 import com.example.mybank.ui.utils.EditTextError;
 
 public class FirstRegisterFragment extends Fragment {
 
     private FragmentFirstRegisterBinding bind;
     private RegisterViewModel viewModel;
+    private MyDatabaseHelper myDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,36 +37,61 @@ public class FirstRegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        myDB = new MyDatabaseHelper(requireActivity());
+
         viewModel = new ViewModelProvider(getActivity()).get(RegisterViewModel.class);
         updateUi();
 
         bind.continueBtn.setOnClickListener(view1 -> {
 
-            String name, cpf, date, email, phone;
-            name = bind.nameEdt.getText().toString().trim();
-            cpf = bind.cpfEdt.getText().toString().trim();
-            date = bind.dataEdt.getText().toString().trim();
-            email = bind.emailEdt.getText().toString().trim();
-            phone = bind.phoneEdt.getText().toString().trim();
+            if (bind.cpfEdt.isDone()
+                    && bind.dataEdt.isDone()
+                    && bind.phoneEdt.isDone()
+                    && (bind.nameEdt.getText().toString().length() > 10)
+                    && !bind.emailEdt.getText().toString().isEmpty()) {
 
-            if (name.isEmpty() || cpf.isEmpty() || date.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-                if (name.isEmpty())
-                    EditTextError.setEdtError(bind.nameEdt, "Campo obrigatório", requireContext());
-                if (cpf.isEmpty())
-                    EditTextError.setEdtError(bind.cpfEdt, "Campo obrigatório", requireContext());
-                if (date.isEmpty())
-                    EditTextError.setEdtError(bind.dataEdt, "Campo obrigatório", requireContext());
-                if (email.isEmpty())
-                    EditTextError.setEdtError(bind.emailEdt, "Campo obrigatório", requireContext());
-                if (phone.isEmpty())
-                    EditTextError.setEdtError(bind.phoneEdt, "Campo obrigatório", requireContext());
+                String name, cpf, date, email, phone;
+                name = bind.nameEdt.getText().toString().trim();
+                cpf = bind.cpfEdt.getText().toString().trim();
+                date = bind.dataEdt.getText().toString().trim();
+                email = bind.emailEdt.getText().toString().trim();
+                phone = bind.phoneEdt.getText().toString().trim();
+
+                if (StringUtils.validateEmail(email)) {
+                    if (!myDB.checkEmail(email)) {
+                        if (CpfCnpjUtils.isValid(cpf)) {
+                            if (!myDB.checkCpf(cpf)) {
+                                viewModel.setName(name);
+                                viewModel.setCpf(cpf);
+                                viewModel.setDate(date);
+                                viewModel.setEmail(email);
+                                viewModel.setPhone(phone);
+                                replaceSecondRegisterFragment();
+                            } else {
+                                EditTextError.setEdtError(bind.cpfEdt, "Esse Cpf pertece a outra conta", requireContext());
+                            }
+                        } else
+                            EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());
+                    } else
+                        EditTextError.setEdtError(bind.emailEdt, "Esse email pertence a outra conta!", requireContext());
+                } else
+                    EditTextError.setEdtError(bind.emailEdt, "Email inválido", requireContext());
+
+
             } else {
-                viewModel.setName(name);
-                viewModel.setCpf(cpf);
-                viewModel.setDate(date);
-                viewModel.setEmail(email);
-                viewModel.setPhone(phone);
-                replaceSecondRegisterFragment();
+                if (bind.nameEdt.getText().toString().isEmpty())
+                    EditTextError.setEdtError(bind.nameEdt, "Campo obrigatório", requireContext());
+                else if (bind.nameEdt.getText().toString().length() < 10)
+                    EditTextError.setEdtError(bind.nameEdt, "Nome inválido", requireContext());
+                else if (!bind.cpfEdt.isDone())
+                    EditTextError.setEdtError(bind.cpfEdt, "Complete o campo", requireContext());
+                else if (!bind.dataEdt.isDone())
+                    EditTextError.setEdtError(bind.dataEdt, "Complete o campo", requireContext());
+                else if (bind.emailEdt.getText().toString().isEmpty())
+                    EditTextError.setEdtError(bind.emailEdt, "Campo obrigatório", requireContext());
+                else
+                    EditTextError.setEdtError(bind.phoneEdt, "Complete o campo", requireContext());
+
             }
 
         });
@@ -79,7 +108,7 @@ public class FirstRegisterFragment extends Fragment {
     }
 
     private void replaceSecondRegisterFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
     }
 

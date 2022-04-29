@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBank">
         <activity
-            android:name=".ui.activitys.ProfileActivity"
+            android:name=".ui.activitys.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activitys.RegisterActivity"
@@ -25,12 +25,14 @@
             android:exported="false" />
         <activity
             android:name=".ui.activitys.MainActivity"
-            android:exported="true">
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

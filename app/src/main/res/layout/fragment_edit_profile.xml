@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activitys.LoginActivity">
+    tools:context=".ui.fragments.EditProfileFragment">
 
     <ImageView
         android:id="@+id/back_img"
@@ -17,81 +17,73 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/bank_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="My Bank"
-        android:textSize="30sp"
+        android:text="Editar dados"
+        android:textAllCaps="true"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/back_img" />
 
-    <TextView
-        android:id="@+id/login_txt"
-        android:layout_width="wrap_content"
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Login"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/back_img"
-        app:layout_constraintTop_toBottomOf="@id/bank_name_txt" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_img" />
 
     <TextView
         android:id="@+id/email_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:text="Email"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/login_txt"
-        app:layout_constraintTop_toBottomOf="@id/login_txt" />
+        app:layout_constraintStart_toStartOf="@id/back_img"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <EditText
         android:id="@+id/email_edt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="textEmailAddress"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/email_txt"
         app:layout_constraintTop_toBottomOf="@id/email_txt" />
 
     <TextView
-        android:id="@+id/senha_txt"
+        android:id="@+id/phone_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Senha"
+        android:layout_marginTop="5dp"
+        android:text="Celular"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/email_edt"
         app:layout_constraintTop_toBottomOf="@id/email_edt" />
 
-    <EditText
-        android:id="@+id/senha_edt"
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/phone_edt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:inputType="phone"
         android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/senha_txt" />
+        app:layout_constraintEnd_toEndOf="@id/email_edt"
+        app:layout_constraintStart_toStartOf="@id/phone_txt"
+        app:layout_constraintTop_toBottomOf="@id/phone_txt"
+        app:mask="(__) _____-____"
+        app:maskCharacter="_"
+        app:maskStyle="completable" />
 
-    <android.widget.Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:text="Entrar"
-        android:backgroundTint="@color/laranja"
-        android:background="@drawable/btn_custom"
-        app:layout_constraintEnd_toEndOf="@id/senha_edt"
-        app:layout_constraintStart_toStartOf="@id/senha_edt"
-        app:layout_constraintTop_toBottomOf="@id/senha_edt" />
 </androidx.constraintlayout.widget.ConstraintLayout>
