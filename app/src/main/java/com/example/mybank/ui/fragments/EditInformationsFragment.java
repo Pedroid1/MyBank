@@ -8,13 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mybank.R;
-import com.example.mybank.databinding.FragmentEditProfileBinding;
+import com.example.mybank.databinding.FragmentEditInformationsBinding;
+import com.example.mybank.databinding.FragmentInformationsBinding;
+import com.example.mybank.ui.LoadingDialog;
 import com.example.mybank.ui.utils.CpfCnpjUtils;
 import com.example.mybank.ui.utils.EditTextError;
 import com.example.mybank.ui.utils.StringUtils;
@@ -22,7 +25,8 @@ import com.santalu.maskara.Mask;
 import com.santalu.maskara.MaskChangedListener;
 import com.santalu.maskara.MaskStyle;
 
-public class EditProfileFragment extends Fragment {
+
+public class EditInformationsFragment extends Fragment {
 
     static final String KEY_EDIT = "KEY";
     static final String NAME_EDIT = "NAME";
@@ -31,13 +35,13 @@ public class EditProfileFragment extends Fragment {
     static final String EMAIL_EDIT = "EMAIL";
     static final String PHONE_EDIT = "PHONE";
 
-    private FragmentEditProfileBinding bind;
     private HomeViewModel viewModel;
+    private FragmentEditInformationsBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentEditProfileBinding.inflate(inflater, container, false);
+        bind = FragmentEditInformationsBinding.inflate(inflater, container, false);
         return bind.getRoot();
     }
 
@@ -54,65 +58,87 @@ public class EditProfileFragment extends Fragment {
         updateUi();
 
         bind.editBtn.setOnClickListener(view1 -> {
-            String edition = bind.editarEdt.getText().toString().trim();
+            String edition = bind.editarInformationEdt.getText().toString().trim();
 
             if (!edition.isEmpty()) {
 
                 if (viewModel.getOptionEdit().equals(NAME_EDIT)) {
 
                     if (edition.length() < 10)
-                        EditTextError.setEdtError(bind.editarEdt, "Nome inválido", requireContext());
-                    else
+                        EditTextError.setEdtError(bind.editarInformationEdt, "Nome inválido", requireContext());
+                    else {
                         viewModel.getCurrentClient().setName(edition);
+                        updateClient();
+                    }
 
                 } else if (viewModel.getOptionEdit().equals(CPF_EDIT)) {
 
-                    if (bind.editarEdt.isDone()) {
+                    if (bind.editarInformationEdtMask.isDone()) {
                         if (!CpfCnpjUtils.isValid(edition))
-                            EditTextError.setEdtError(bind.editarEdt, "CPF inválido", requireContext());
-                        else
+                            EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF inválido", requireContext());
+                        else {
                             viewModel.getCurrentClient().setCpf(edition);
+                            updateClient();
+                        }
+
                     } else
-                        EditTextError.setEdtError(bind.editarEdt, "Complete o campo", requireContext());
+                        EditTextError.setEdtError(bind.editarInformationEdtMask, "Complete o campo", requireContext());
 
                 } else if (viewModel.getOptionEdit().equals(DATE_EDIT)) {
 
-                    if(bind.editarEdt.isDone())
+                    if (bind.editarInformationEdtMask.isDone()) {
                         viewModel.getCurrentClient().setDate(edition);
-                    else
-                        EditTextError.setEdtError(bind.editarEdt, "Complete o campo", requireContext());
+                        updateClient();
+                    } else
+                        EditTextError.setEdtError(bind.editarInformationEdtMask, "Complete o campo", requireContext());
 
                 } else if (viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
 
                     if (!StringUtils.validateEmail(edition))
-                        EditTextError.setEdtError(bind.editarEdt, "Email inválido", requireContext());
-                    else
+                        EditTextError.setEdtError(bind.editarInformationEdt, "Email inválido", requireContext());
+                    else {
                         viewModel.getCurrentClient().setEmail(edition);
+                        updateClient();
+                    }
 
                 } else {
 
-                    if (bind.editarEdt.isDone())
+                    if (bind.editarInformationEdtMask.isDone()) {
                         viewModel.getCurrentClient().setPhone(edition);
+                        updateClient();
+                    }
                     else
-                        EditTextError.setEdtError(bind.editarEdt, "Preencha o campo", requireContext());
+                        EditTextError.setEdtError(bind.editarInformationEdtMask, "Preencha o campo", requireContext());
                 }
             } else {
-                EditTextError.setEdtError(bind.editarEdt, "Campo obrigatório", requireContext());
+                if (bind.editarInformationEdt.getVisibility() == View.VISIBLE)
+                    EditTextError.setEdtError(bind.editarInformationEdt, "Campo obrigatório", requireContext());
+                else
+                    EditTextError.setEdtError(bind.editarInformationEdtMask, "Campo obrigatório", requireContext());
             }
 
-            viewModel.getMyDB().updateClient(viewModel.getCurrentClient());
         });
 
         bind.backImg.setOnClickListener(view1 -> {
             viewModel.setOptionEdit(null);
             replaceInformationsFragment();
         });
+
     }
 
     private void updateUi() {
+        if (viewModel.getOptionEdit().equals(NAME_EDIT) || viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
+            bind.editarInformationEdt.setVisibility(View.VISIBLE);
+            bind.editarInformationEdtMask.setVisibility(View.GONE);
+        } else {
+            bind.editarInformationEdt.setVisibility(View.INVISIBLE);
+            bind.editarInformationEdtMask.setVisibility(View.VISIBLE);
+        }
+
         if (viewModel.getOptionEdit().equals(NAME_EDIT)) {
             bind.editarTxt.setText("Editar nome");
-            bind.editarEdt.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+            bind.editarInformationEdt.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+            bind.editarInformationEdt.setText(viewModel.getCurrentClient().getName());
 
         } else if (viewModel.getOptionEdit().equals(CPF_EDIT)) {
 
@@ -122,8 +148,8 @@ public class EditProfileFragment extends Fragment {
                     '_',
                     MaskStyle.COMPLETABLE
             );
-            bind.editarEdt.addTextChangedListener(new MaskChangedListener(mask));
-            bind.editarEdt.setText(viewModel.getCurrentClient().getCpf());
+            bind.editarInformationEdtMask.addTextChangedListener(new MaskChangedListener(mask));
+            bind.editarInformationEdtMask.setText(viewModel.getCurrentClient().getCpf());
 
         } else if (viewModel.getOptionEdit().equals(DATE_EDIT)) {
 
@@ -133,14 +159,14 @@ public class EditProfileFragment extends Fragment {
                     '_',
                     MaskStyle.COMPLETABLE
             );
-            bind.editarEdt.addTextChangedListener(new MaskChangedListener(mask));
-            bind.editarEdt.setText(viewModel.getCurrentClient().getDate());
+            bind.editarInformationEdtMask.addTextChangedListener(new MaskChangedListener(mask));
+            bind.editarInformationEdtMask.setText(viewModel.getCurrentClient().getDate());
 
         } else if (viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
 
             bind.editarTxt.setText("Editar email");
-            bind.editarEdt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-            bind.editarEdt.setText(viewModel.getCurrentClient().getEmail());
+            bind.editarInformationEdt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            bind.editarInformationEdt.setText(viewModel.getCurrentClient().getEmail());
 
         } else {
 
@@ -150,8 +176,8 @@ public class EditProfileFragment extends Fragment {
                     '_',
                     MaskStyle.COMPLETABLE
             );
-            bind.editarEdt.addTextChangedListener(new MaskChangedListener(mask));
-            bind.editarEdt.setText(viewModel.getCurrentClient().getPhone());
+            bind.editarInformationEdtMask.addTextChangedListener(new MaskChangedListener(mask));
+            bind.editarInformationEdtMask.setText(viewModel.getCurrentClient().getPhone());
 
         }
     }
@@ -159,5 +185,20 @@ public class EditProfileFragment extends Fragment {
     private void replaceInformationsFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).commit();
+    }
+
+    private void updateClient() {
+        viewModel.getMyDB().updateClient(viewModel.getCurrentClient());
+        viewModel.setCurrentClient(viewModel.getCurrentClient());
+        viewModel.setOptionEdit(null);
+
+        LoadingDialog loadingDialog = new LoadingDialog(requireActivity());
+        loadingDialog.startLoadDialog();
+
+        new Handler().postDelayed(() -> {
+            loadingDialog.dismissDialog();
+            replaceInformationsFragment();
+
+        }, 2000);
     }
 }

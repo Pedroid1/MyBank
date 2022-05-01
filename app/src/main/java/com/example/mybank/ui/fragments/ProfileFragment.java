@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mybank.R;
-import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentProfileBinding;
 import com.example.mybank.model.Client;
 import com.example.mybank.ui.activitys.HomeActivity;
@@ -24,7 +23,6 @@ import com.example.mybank.ui.activitys.MainActivity;
 
 public class ProfileFragment extends Fragment {
 
-    private MyDatabaseHelper myDB;
     private FragmentProfileBinding bind;
     private HomeViewModel viewModel;
 
@@ -39,9 +37,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        myDB = new MyDatabaseHelper(requireActivity());
-
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        if(viewModel.getMyDB() == null)
+            viewModel.setMyDB(requireActivity());
         updateUi();
 
         if(viewModel.getCurrentClient() == null) {
@@ -50,16 +48,18 @@ public class ProfileFragment extends Fragment {
                 String email = args.getString(HomeActivity.EMAIL_KEY);
                 String senha = args.getString(HomeActivity.SENHA_KEY);
 
-                Client currentClient = myDB.findClientByEmailAndPassword(email, senha);
+                Client currentClient = viewModel.getMyDB().findClientByEmailAndPassword(email, senha);
                 if(currentClient != null) {
                     viewModel.setCurrentClient(currentClient);
+                    Log.d("Teste", String.valueOf(viewModel.getCurrentClient().getId()));
                 }
             }
         }
 
-        bind.editBtn.setOnClickListener(view1 ->  {
-            replaceEditProfileFragment();
+        bind.informationsCard.setOnClickListener(view1 -> {
+            replaceInformationsFragment();
         });
+
 
         bind.sairBtn.setOnClickListener(view1 -> {
             Intent intent = new Intent(requireActivity(), MainActivity.class);
@@ -68,9 +68,9 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void replaceEditProfileFragment() {
+    private void replaceInformationsFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new EditProfileFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).commit();
     }
 
     private void updateUi() {

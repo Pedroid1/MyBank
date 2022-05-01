@@ -84,6 +84,28 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean userLogin(String email, String senha) {
+        String query = "SELECT " + COLUMN_EMAIL + ", " + COLUMN_PASSWORD + " FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = '" + email + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if(db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        if(cursor != null) {
+            while(cursor.moveToNext()) {
+                String emailBD = cursor.getString(0);
+                String senhaBD = cursor.getString(1);
+                if(emailBD.equals(email)) {
+                    return senhaBD.equals(senha);
+                }
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+
     public boolean checkCpf(String cpf) {
         String query = "SELECT " + COLUMN_CPF + " FROM " + TABLE_NAME + " WHERE " + COLUMN_CPF + " = '" + cpf + "'";
 

@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar dados"
+        android:text="Editar dados pessoais"
         android:textAllCaps="true"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -39,51 +39,37 @@
         app:layout_constraintTop_toBottomOf="@id/back_img" />
 
     <TextView
-        android:id="@+id/email_txt"
+        android:id="@+id/editar_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        android:text="Email"
+        android:text="Editar"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/back_img"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/divider"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
-    <EditText
-        android:id="@+id/email_edt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="5dp"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/email_txt"
-        app:layout_constraintTop_toBottomOf="@id/email_txt" />
-
-    <TextView
-        android:id="@+id/phone_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Celular"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/email_edt"
-        app:layout_constraintTop_toBottomOf="@id/email_edt" />
-
     <com.santalu.maskara.widget.MaskEditText
-        android:id="@+id/phone_edt"
+        android:id="@+id/editar_edt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="15dp"
-        android:inputType="phone"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="@id/email_edt"
-        app:layout_constraintStart_toStartOf="@id/phone_txt"
-        app:layout_constraintTop_toBottomOf="@id/phone_txt"
-        app:mask="(__) _____-____"
-        app:maskCharacter="_"
-        app:maskStyle="completable" />
+        app:layout_constraintEnd_toEndOf="@id/divider"
+        app:layout_constraintStart_toStartOf="@id/divider"
+        app:layout_constraintTop_toBottomOf="@id/editar_txt" />
+
+    <android.widget.Button
+        android:id="@+id/edit_btn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_custom"
+        android:backgroundTint="@color/laranja"
+        android:text="Editar"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/editar_edt"
+        app:layout_constraintStart_toStartOf="@id/editar_edt"
+        app:layout_constraintTop_toBottomOf="@id/editar_edt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

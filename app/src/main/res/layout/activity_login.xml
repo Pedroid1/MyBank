@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
+        android:inputType="textEmailAddress"
         android:layout_marginEnd="15dp"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,20 +78,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
+        android:maxLength="4"
         android:layout_marginEnd="15dp"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:inputType="numberPassword"
         app:layout_constraintTop_toBottomOf="@id/senha_txt" />
 
-    <android.widget.Button
+    <include
+        layout="@layout/progress_button"
+        android:id="@+id/login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:text="Entrar"
-        android:backgroundTint="@color/laranja"
         android:background="@drawable/btn_custom"
+        android:backgroundTint="@color/laranja"
+        android:text="Entrar"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/senha_edt"
         app:layout_constraintStart_toStartOf="@id/senha_edt"
         app:layout_constraintTop_toBottomOf="@id/senha_edt" />
