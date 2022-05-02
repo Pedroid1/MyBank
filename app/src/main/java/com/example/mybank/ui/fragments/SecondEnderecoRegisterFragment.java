@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +20,7 @@ import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentSecondEnderecoRegisterBinding;
 import com.example.mybank.model.Client;
 import com.example.mybank.ui.ProgressButton;
-import com.example.mybank.ui.activitys.HomeActivity;
+import com.example.mybank.ui.activity.HomeActivity;
 import com.example.mybank.ui.utils.EditTextError;
 
 public class SecondEnderecoRegisterFragment extends Fragment {

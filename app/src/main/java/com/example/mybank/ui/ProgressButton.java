@@ -53,7 +53,7 @@ public class ProgressButton {
 
 
     public void buttonFinishedFail() {
-        constraintLayout.setBackgroundColor(ActivityCompat.getColor(context, R.color.verde));
+        constraintLayout.setBackgroundColor(ActivityCompat.getColor(context, R.color.vermelho));
         progressBar.setVisibility(View.GONE);
         messageTxt.setText(failMessage);
     }

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentEditInformationsBinding;
-import com.example.mybank.databinding.FragmentInformationsBinding;
 import com.example.mybank.ui.LoadingDialog;
 import com.example.mybank.ui.utils.CpfCnpjUtils;
 import com.example.mybank.ui.utils.EditTextError;
@@ -58,7 +57,11 @@ public class EditInformationsFragment extends Fragment {
         updateUi();
 
         bind.editBtn.setOnClickListener(view1 -> {
-            String edition = bind.editarInformationEdt.getText().toString().trim();
+            String edition;
+            if (bind.editarInformationEdt.getVisibility() == View.VISIBLE)
+                edition = bind.editarInformationEdt.getText().toString().trim();
+            else
+                edition = bind.editarInformationEdtMask.getText().toString().trim();
 
             if (!edition.isEmpty()) {
 
@@ -77,8 +80,12 @@ public class EditInformationsFragment extends Fragment {
                         if (!CpfCnpjUtils.isValid(edition))
                             EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF inválido", requireContext());
                         else {
-                            viewModel.getCurrentClient().setCpf(edition);
-                            updateClient();
+                            if(viewModel.getMyDB().checkEmail(edition)) {
+                                EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF cadastrado em outra conta", requireContext());
+                            } else {
+                                viewModel.getCurrentClient().setCpf(edition);
+                                updateClient();
+                            }
                         }
 
                     } else
@@ -97,8 +104,12 @@ public class EditInformationsFragment extends Fragment {
                     if (!StringUtils.validateEmail(edition))
                         EditTextError.setEdtError(bind.editarInformationEdt, "Email inválido", requireContext());
                     else {
-                        viewModel.getCurrentClient().setEmail(edition);
-                        updateClient();
+                        if(viewModel.getMyDB().checkEmail(edition)) {
+                            EditTextError.setEdtError(bind.editarInformationEdt, "Email cadastrado em outra conta", requireContext());
+                        } else {
+                            viewModel.getCurrentClient().setEmail(edition);
+                            updateClient();
+                        }
                     }
 
                 } else {
@@ -129,9 +140,9 @@ public class EditInformationsFragment extends Fragment {
     private void updateUi() {
         if (viewModel.getOptionEdit().equals(NAME_EDIT) || viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
             bind.editarInformationEdt.setVisibility(View.VISIBLE);
-            bind.editarInformationEdtMask.setVisibility(View.GONE);
+            //bind.editarInformationEdtMask.setVisibility(View.GONE);
         } else {
-            bind.editarInformationEdt.setVisibility(View.INVISIBLE);
+            //bind.editarInformationEdt.setVisibility(View.GONE);
             bind.editarInformationEdtMask.setVisibility(View.VISIBLE);
         }
 
@@ -153,7 +164,7 @@ public class EditInformationsFragment extends Fragment {
 
         } else if (viewModel.getOptionEdit().equals(DATE_EDIT)) {
 
-            bind.editarTxt.setText("Editar data");
+            bind.editarTxt.setText("Editar data de nascimento");
             Mask mask = new Mask(
                     "__/__/____",
                     '_',

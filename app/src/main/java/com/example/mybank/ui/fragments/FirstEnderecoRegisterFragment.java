@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentFirstEnderecoRegisterBinding;
-import com.example.mybank.databinding.FragmentFirstRegisterBinding;
 import com.example.mybank.model.Endereco;
 import com.example.mybank.network.RetrofitInstance;
 import com.example.mybank.network.RetrofitMethods;

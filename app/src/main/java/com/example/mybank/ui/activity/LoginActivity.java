@@ -1,11 +1,10 @@
-package com.example.mybank.ui.activitys;
+package com.example.mybank.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import com.example.mybank.R;
@@ -91,9 +90,9 @@ public class LoginActivity extends AppCompatActivity {
             }
             loginBtn.setClickable(true);
         });
-    }
 
-    private void resetButton() {
-
+        bind.backImg.setOnClickListener(view -> {
+            finish();
+        });
     }
 }

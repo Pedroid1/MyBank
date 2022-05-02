@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.mybank.R;
 import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentFirstRegisterBinding;
-import com.example.mybank.ui.activitys.LoginActivity;
+import com.example.mybank.ui.activity.LoginActivity;
 import com.example.mybank.ui.utils.CpfCnpjUtils;
 import com.example.mybank.ui.utils.StringUtils;
 import com.example.mybank.ui.utils.EditTextError;
@@ -68,7 +68,7 @@ public class FirstRegisterFragment extends Fragment {
                                 viewModel.setPhone(phone);
                                 replaceSecondRegisterFragment();
                             } else {
-                                EditTextError.setEdtError(bind.cpfEdt, "Esse Cpf pertece a outra conta", requireContext());
+                                EditTextError.setEdtError(bind.cpfEdt, "Esse Cpf pertence a outra conta", requireContext());
                             }
                         } else
                             EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());

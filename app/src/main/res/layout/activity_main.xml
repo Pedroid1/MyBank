@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.activitys.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <TextView
         android:id="@+id/bank_name_txt"
@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
-        android:text="Bank"
-        android:textColor="@color/white"
+        android:text="@string/bank_name"
+        android:textAllCaps="true"
+        android:textColor="@color/laranja"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="O seu banco digital"
+        android:text="@string/o_seu_banco_digital"
         android:textColor="@color/white2"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/bank_name_txt"
@@ -34,7 +35,7 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="menos tarifas e mais benefícios"
+        android:text="@string/menos_tarifas"
         android:textColor="@color/white2"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -50,10 +51,10 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_custom"
         android:backgroundTint="@color/white"
-        android:text="Entrar"
+        android:text="@string/entrar"
         android:textAllCaps="true"
-        android:textStyle="bold"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/register_btn"
         app:layout_constraintStart_toStartOf="parent" />
@@ -61,15 +62,15 @@
     <android.widget.Button
         android:id="@+id/register_btn"
         android:layout_width="0dp"
-        android:textStyle="bold"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/btn_custom"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_custom"
         android:backgroundTint="@color/laranja"
-        android:text="Criar conta"
+        android:text="@string/criar_conta"
         android:textAllCaps="true"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/login_btn"
         app:layout_constraintTop_toTopOf="@id/login_btn" />

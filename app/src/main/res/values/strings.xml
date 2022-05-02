@@ -1,5 +1,36 @@
 <resources>
-    <string name="app_name">MyBank</string>
+    <string name="app_name">Java Bank</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bank_name">Java Bank</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="o_seu_banco_digital">O seu banco digital</string>
+    <string name="menos_tarifas">menos tarifas e mais benefícios</string>
+    <string name="perfil">Perfil</string>
+    <string name="endereco">Endereço</string>
+    <string name="cep">Cep</string>
+    <string name="continuar">Continuar</string>
+    <string name="nome_completo">Nome completo</string>
+    <string name="cpf">CPF</string>
+    <string name="data_de_nascimento">Data de nascimento</string>
+    <string name="celular">Celular</string>
+    <string name="já_tem_conta">Já tem uma conta?</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="numero">Número</string>
+    <string name="bairro">Bairro</string>
+    <string name="cidade">Cidade</string>
+    <string name="estado">Estado</string>
+    <string name="condicoes">Ao criar uma conta você aceita nossos termos e condições.</string>
+    <string name="senha_do_app">SENHA DO APP</string>
+    <string name="confirmar_senha">Confirmar senha</string>
+    <string name="informacoes_pessoais">Informações pessoais</string>
+    <string name="editar_dados_pessoais">Editar dados pessoais</string>
+    <string name="deletar_conta">Deletar conta</string>
+    <string name="fale_conosco">Fale conosco</string>
+    <string name="seguranca">Segurança</string>
+    <string name="dados_pessoais">Dados pessoais</string>
 </resources>

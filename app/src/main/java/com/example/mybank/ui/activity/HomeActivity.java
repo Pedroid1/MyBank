@@ -1,4 +1,4 @@
-package com.example.mybank.ui.activitys;
+package com.example.mybank.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;

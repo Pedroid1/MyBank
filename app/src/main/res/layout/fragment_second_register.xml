@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        tools:context=".ui.activitys.RegisterActivity">
+        tools:context=".ui.activity.RegisterActivity">
 
         <ImageView
             android:id="@+id/back_img"
@@ -24,8 +25,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SENHA DO APP"
+            android:text="@string/senha_do_app"
             android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@id/back_img"
+            android:textColor="@color/laranja"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-            android:text="Senha"
+            android:text="@string/senha"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -74,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Confirmar senha"
+            android:text="@string/confirmar_senha"
             app:layout_constraintStart_toStartOf="@id/senha_1_edt"
             app:layout_constraintTop_toBottomOf="@id/senha_1_edt" />
 
@@ -91,13 +94,13 @@
             app:layout_constraintTop_toBottomOf="@id/senha_2_txt" />
 
         <android.widget.Button
-            android:layout_width="0dp"
             android:id="@+id/continue_btn"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_custom"
             android:backgroundTint="@color/laranja"
-            android:text="Continuar"
+            android:text="@string/continuar"
             android:textAllCaps="true"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/senha_2_edt"

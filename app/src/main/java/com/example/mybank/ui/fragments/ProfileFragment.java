@@ -1,5 +1,6 @@
 package com.example.mybank.ui.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentProfileBinding;
 import com.example.mybank.model.Client;
-import com.example.mybank.ui.activitys.HomeActivity;
-import com.example.mybank.ui.activitys.MainActivity;
+import com.example.mybank.ui.activity.HomeActivity;
+import com.example.mybank.ui.activity.MainActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -51,7 +51,6 @@ public class ProfileFragment extends Fragment {
                 Client currentClient = viewModel.getMyDB().findClientByEmailAndPassword(email, senha);
                 if(currentClient != null) {
                     viewModel.setCurrentClient(currentClient);
-                    Log.d("Teste", String.valueOf(viewModel.getCurrentClient().getId()));
                 }
             }
         }
@@ -65,6 +64,21 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(requireActivity(), MainActivity.class);
             requireActivity().startActivity(intent);
             requireActivity().finish();
+        });
+
+        bind.deleteConta.setOnClickListener(view1 -> {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
+            dialog.setTitle("Deletar conta");
+            dialog.setMessage("Tem certeza que deseja deletar sua conta?");
+            dialog.setPositiveButton("Sim", (dialogInterface, i) -> {
+                viewModel.getMyDB().deleteClientById(viewModel.getCurrentClient().getId());
+                Intent intent = new Intent(requireActivity(), MainActivity.class);
+                requireActivity().startActivity(intent);
+                requireActivity().finish();
+            });
+            dialog.setNegativeButton("Não", (dialogInterface, i) -> {
+            });
+            dialog.show();
         });
     }
 
