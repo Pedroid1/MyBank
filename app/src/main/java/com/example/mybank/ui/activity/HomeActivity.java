@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString(EMAIL_KEY, email);
         args.putString(SENHA_KEY, senha);
+
+
         replaceProfileFragment(args);
     }
 
