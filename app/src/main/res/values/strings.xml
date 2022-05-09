@@ -33,4 +33,11 @@
     <string name="fale_conosco">Fale conosco</string>
     <string name="seguranca">Segurança</string>
     <string name="dados_pessoais">Dados pessoais</string>
+    <string name="confirmar_email">Confirmar e-mail</string>
+    <string name="codigo">Código</string>
+    <string name="codigo_enviado">Digite o código que enviamos para seu e-mail</string>
+    <string name="renda">RENDA</string>
+    <string name="renda_mensal">Renda mensal</string>
+    <string name="patrimonio_liquido">Patrimônio líquido</string>
+    <string name="patrimonio">Patrimonio</string>
 </resources>

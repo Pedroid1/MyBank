@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/activity_splash_screen.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/custom_dialog.xml" value="0.7428571428571429" />
+        <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_confirm_email.xml" value="0.4067028985507246" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_edit_informations.xml" value="0.33" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_first_endereco_register.xml" value="0.3079710144927536" />
@@ -17,8 +18,9 @@
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_informations.xml" value="0.33" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_register.xml" value="0.22708333333333333" />
-        <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_second_endereco_register.xml" value="0.3079710144927536" />
+        <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_second_endereco_register.xml" value="0.25" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_second_register.xml" value="0.33" />
+        <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_third_register.xml" value="0.4067028985507246" />
         <entry key="..\:/Users/Pedro Henrique/AndroidStudioProjects/MyBank/app/src/main/res/layout/progress_button.xml" value="0.1" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/drawable/btn_custom_2.xml" value="0.1775" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/drawable/ic_exit.xml" value="0.1775" />

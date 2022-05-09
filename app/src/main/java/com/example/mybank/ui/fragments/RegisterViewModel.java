@@ -25,6 +25,46 @@ public class RegisterViewModel extends ViewModel {
     private MutableLiveData<String> district = new MutableLiveData();
     private MutableLiveData<String> city = new MutableLiveData();
 
+    private MutableLiveData<Double> rendaMensal = new MutableLiveData();
+    private MutableLiveData<Double> patrimonioLiquido = new MutableLiveData();
+
+    private boolean sendEmail = false;
+    private Integer codeSent;
+
+    public LiveData<Double> getRendaMensal() {
+        return rendaMensal;
+    }
+
+    public void setRendaMensal(Double rendaMensal) {
+        this.rendaMensal.setValue(rendaMensal);
+        this.client.setRendaMensal(rendaMensal);
+    }
+
+    public LiveData<Double> getPatrimonioLiquido() {
+        return patrimonioLiquido;
+    }
+
+    public void setPatrimonioLiquido(Double patrimonioLiquido) {
+        this.patrimonioLiquido.setValue(patrimonioLiquido);
+        client.setPatrimonioLiquido(patrimonioLiquido);
+    }
+
+    public Integer getCodeSent() {
+        return codeSent;
+    }
+
+    public void setCodeSent(Integer codeSent) {
+        this.codeSent = codeSent;
+    }
+
+    public boolean isSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(boolean sendEmail) {
+        this.sendEmail = sendEmail;
+    }
+
     public LiveData<String> getSenha() {
         return senha;
     }

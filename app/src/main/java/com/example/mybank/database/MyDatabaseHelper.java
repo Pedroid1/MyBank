@@ -12,7 +12,7 @@ import com.example.mybank.model.Client;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "NewClientss.db";
+    private static final String DATABASE_NAME = "JavaBankSa.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_NAME = "my_clients";
@@ -31,6 +31,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private  static final String COLUMN_DISTRICT = "client_district";
     private  static final String COLUMN_ADDRESS = "client_address";
     private  static final String COLUMN_NUMBER = "client_number";
+
+    //RENDA
+    private  static final String COLUMN_RENDA_MENSAL = "client_renda";
+    private  static final String COLUMN_PATRIMONIO_LIQUIDO = "client_patrimonio";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,7 +57,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_CITY + " TEXT, " +
                         COLUMN_DISTRICT + " TEXT, " +
                         COLUMN_ADDRESS + " TEXT, " +
-                        COLUMN_NUMBER + " TEXT);";
+                        COLUMN_NUMBER + " TEXT, " +
+                        COLUMN_RENDA_MENSAL + " REAL, " +
+                        COLUMN_PATRIMONIO_LIQUIDO + " REAL);";
 
         db.execSQL(query);
     }
@@ -143,6 +149,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 String name, cpf, date, phone, senha;
                 //Endereço
                 String cep, state, city, district, address, number;
+                //Renda
+                Double renda, patrimonio;
 
                 id = cursor.getInt(0);
                 name = cursor.getString(1);
@@ -151,12 +159,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 email = cursor.getString(4);
                 phone = cursor.getString(5);
                 senha = cursor.getString(6);
+
                 cep = cursor.getString(7);
                 state = cursor.getString(8);
                 city = cursor.getString(9);
                 district = cursor.getString(10);
                 address = cursor.getString(11);
                 number = cursor.getString(12);
+
+                renda = cursor.getDouble(13);
+                patrimonio = cursor.getDouble(14);
+
 
                 currentClient.setId(id);
                 currentClient.setName(name);
@@ -165,6 +178,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 currentClient.setEmail(email);
                 currentClient.setPhone(phone);
                 currentClient.setSenha(senha);
+
                 currentClient.setCep(cep);
                 currentClient.setState(state);
                 currentClient.setCity(city);
@@ -173,6 +187,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 currentClient.setNumber(number);
                 currentClient.setSenha(senha);
                 currentClient.setEmail(email);
+
+                currentClient.setRendaMensal(renda);
+                currentClient.setPatrimonioLiquido(patrimonio);
                 return currentClient;
             }
         }
@@ -196,6 +213,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DISTRICT, newClient.getDistrict());
         cv.put(COLUMN_ADDRESS, newClient.getAddress());
         cv.put(COLUMN_NUMBER, newClient.getName());
+
+        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
+        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
 
         Long result = db.insert(TABLE_NAME, null, cv);
 
@@ -243,6 +263,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_CITY, newClient.getCity());
         cv.put(COLUMN_DISTRICT, newClient.getDistrict());
         cv.put(COLUMN_ADDRESS, newClient.getAddress());
+
+        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
+        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
 
         int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{newClient.getId().toString()});
         if(result == -1) {

@@ -27,7 +27,6 @@ public class SecondEnderecoRegisterFragment extends Fragment {
 
     private FragmentSecondEnderecoRegisterBinding bind;
     private RegisterViewModel viewModel;
-    private View finishBtn;
     private MyDatabaseHelper myDB;
 
     @Override
@@ -45,15 +44,8 @@ public class SecondEnderecoRegisterFragment extends Fragment {
         updateUi();
         myDB = new MyDatabaseHelper(requireActivity());
 
-        finishBtn = view.findViewById(R.id.finish_btn);
-        ProgressButton progressButton = new ProgressButton(requireContext(),
-                "Finalizar",
-                "Falha ao cadastrar",
-                "Pronto",
-                finishBtn);
-
-        finishBtn.setOnClickListener(view1 -> {
-            finishBtn.setClickable(false);
+        bind.continuarBtn.setOnClickListener(view1 -> {
+            bind.continuarBtn.setClickable(false);
             String logradouro, number, districy, city, state;
 
             logradouro = bind.logradouroEdt.getText().toString().trim();
@@ -83,31 +75,11 @@ public class SecondEnderecoRegisterFragment extends Fragment {
                 viewModel.getClient().setCity(city);
                 viewModel.getClient().setState(state);
 
-                progressButton.buttonActivated();
-                new Handler().postDelayed(() -> {
-
-                    if(addClient(viewModel.getClient())) {
-                        progressButton.buttonFinishedSuccess();
-
-                        new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
-                            intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
-                            requireActivity().startActivity(intent);
-
-                            finishBtn.setClickable(true);
-                            requireActivity().finish();
-                        }, 2000);
-                    } else {
-                        progressButton.buttonFinishedFail();
-                        new Handler().postDelayed(() -> {
-                            progressButton.resetButton();
-                        }, 2000);
-                    }
-                }, 3000);
+                addClient(viewModel.getClient());
+                replaceConfirmEmailFragment();
             }
-            finishBtn.setClickable(true);
+
+            bind.continuarBtn.setClickable(true);
         });
 
         bind.backImg.setOnClickListener(view1 -> {
@@ -119,6 +91,11 @@ public class SecondEnderecoRegisterFragment extends Fragment {
     private void replaceFirstEnderecoRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
+    }
+
+    private void replaceConfirmEmailFragment() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ConfirmEmailFragment()).commit();
     }
 
     private void updateUi() {

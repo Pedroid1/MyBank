@@ -57,7 +57,7 @@ public class SecondRegisterFragment extends Fragment {
                         EditTextError.setEdtError(bind.senha2Edt, "As senhas não correspondem!", requireContext());
                     } else {
                         viewModel.setSenha(sSenha1);
-                        replaceEnderecoRegisterFragment();
+                        replaceThirdRegisterFragment();
                     }
                 }
             }
@@ -81,8 +81,8 @@ public class SecondRegisterFragment extends Fragment {
         fragmentManager.beginTransaction().replace(R.id.frame, new FirstRegisterFragment()).commit();
     }
 
-    private void replaceEnderecoRegisterFragment() {
+    private void replaceThirdRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ThirdRegisterFragment()).commit();
     }
 }

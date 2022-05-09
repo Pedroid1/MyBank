@@ -12,8 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/name_client_txt"
-                app:layout_constraintTop_toBottomOf="@id/name_client_txt" />
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
 
             <TextView
                 android:id="@+id/cpf_client_txt"
@@ -183,7 +183,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/data_client_txt"
-                app:layout_constraintTop_toBottomOf="@id/data_client_txt" />
+                app:layout_constraintTop_toBottomOf="@id/divider4" />
 
             <TextView
                 android:id="@+id/email_client_txt"
@@ -223,7 +223,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/email_client_txt"
-                app:layout_constraintTop_toBottomOf="@id/email_client_txt" />
+                app:layout_constraintTop_toBottomOf="@id/divider5" />
 
             <TextView
                 android:id="@+id/phone_client_txt"
@@ -263,7 +263,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/phone_txt"
-                app:layout_constraintTop_toBottomOf="@id/phone_client_txt" />
+                app:layout_constraintTop_toBottomOf="@id/divider6" />
 
             <TextView
                 android:id="@+id/city_client_txt"
@@ -301,11 +301,90 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/divider1"
+                app:layout_constraintStart_toStartOf="@id/divider1"
+                app:layout_constraintTop_toBottomOf="@id/city_client_txt" />
+
+            <TextView
+                android:id="@+id/renda_mensal_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/renda_mensal"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@id/address_txt"
+                app:layout_constraintTop_toBottomOf="@id/divider7" />
+
+            <TextView
+                android:id="@+id/renda_mensal_client_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/renda_mensal_txt"
+                app:layout_constraintTop_toBottomOf="@id/renda_mensal_txt" />
+
+            <ImageView
+                android:id="@+id/renda_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toTopOf="@id/divider8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider7" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/divider1"
+                app:layout_constraintStart_toStartOf="@id/divider1"
+                app:layout_constraintTop_toBottomOf="@id/renda_mensal_client_txt" />
+
+            <TextView
+                android:id="@+id/patrimonio_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/patrimonio_liquido"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@id/renda_mensal_txt"
+                app:layout_constraintTop_toBottomOf="@id/divider8" />
+
+            <TextView
+                android:id="@+id/patrimonio_client_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/patrimonio_txt"
+                app:layout_constraintTop_toBottomOf="@id/patrimonio_txt" />
+
+            <ImageView
+                android:id="@+id/patrimonio_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toTopOf="@id/divider9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider8" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/divider1"
                 app:layout_constraintStart_toStartOf="@id/divider1"
-                app:layout_constraintTop_toBottomOf="@id/city_client_txt" />
+                app:layout_constraintTop_toBottomOf="@id/patrimonio_client_txt" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

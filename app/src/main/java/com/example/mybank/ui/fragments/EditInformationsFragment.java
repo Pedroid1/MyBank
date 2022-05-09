@@ -33,6 +33,8 @@ public class EditInformationsFragment extends Fragment {
     static final String DATE_EDIT = "DATA";
     static final String EMAIL_EDIT = "EMAIL";
     static final String PHONE_EDIT = "PHONE";
+    static final String PATRIMONIO_EDIT = "PATRIMONIO";
+    static final String RENDA_EDIT = "RENDA";
 
     private HomeViewModel viewModel;
     private FragmentEditInformationsBinding bind;
@@ -80,7 +82,7 @@ public class EditInformationsFragment extends Fragment {
                         if (!CpfCnpjUtils.isValid(edition))
                             EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF inválido", requireContext());
                         else {
-                            if(viewModel.getMyDB().checkEmail(edition)) {
+                            if (viewModel.getMyDB().checkEmail(edition)) {
                                 EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF cadastrado em outra conta", requireContext());
                             } else {
                                 viewModel.getCurrentClient().setCpf(edition);
@@ -104,7 +106,7 @@ public class EditInformationsFragment extends Fragment {
                     if (!StringUtils.validateEmail(edition))
                         EditTextError.setEdtError(bind.editarInformationEdt, "Email inválido", requireContext());
                     else {
-                        if(viewModel.getMyDB().checkEmail(edition)) {
+                        if (viewModel.getMyDB().checkEmail(edition)) {
                             EditTextError.setEdtError(bind.editarInformationEdt, "Email cadastrado em outra conta", requireContext());
                         } else {
                             viewModel.getCurrentClient().setEmail(edition);
@@ -112,13 +114,22 @@ public class EditInformationsFragment extends Fragment {
                         }
                     }
 
+                } else if(viewModel.getOptionEdit().equals(RENDA_EDIT)) {
+
+                    viewModel.getCurrentClient().setRendaMensal(Double.parseDouble(edition));
+                    updateClient();
+
+                } else if(viewModel.getOptionEdit().equals(PATRIMONIO_EDIT)) {
+
+                    viewModel.getCurrentClient().setPatrimonioLiquido(Double.parseDouble(edition));
+                    updateClient();
+
                 } else {
 
                     if (bind.editarInformationEdtMask.isDone()) {
                         viewModel.getCurrentClient().setPhone(edition);
                         updateClient();
-                    }
-                    else
+                    } else
                         EditTextError.setEdtError(bind.editarInformationEdtMask, "Preencha o campo", requireContext());
                 }
             } else {
@@ -138,11 +149,9 @@ public class EditInformationsFragment extends Fragment {
     }
 
     private void updateUi() {
-        if (viewModel.getOptionEdit().equals(NAME_EDIT) || viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
+        if (viewModel.getOptionEdit().equals(NAME_EDIT) || viewModel.getOptionEdit().equals(EMAIL_EDIT) || viewModel.getOptionEdit().equals(RENDA_EDIT) || viewModel.getOptionEdit().equals(PATRIMONIO_EDIT)) {
             bind.editarInformationEdt.setVisibility(View.VISIBLE);
-            //bind.editarInformationEdtMask.setVisibility(View.GONE);
         } else {
-            //bind.editarInformationEdt.setVisibility(View.GONE);
             bind.editarInformationEdtMask.setVisibility(View.VISIBLE);
         }
 
@@ -178,6 +187,18 @@ public class EditInformationsFragment extends Fragment {
             bind.editarTxt.setText("Editar email");
             bind.editarInformationEdt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
             bind.editarInformationEdt.setText(viewModel.getCurrentClient().getEmail());
+
+        } else if(viewModel.getOptionEdit().equals(RENDA_EDIT)) {
+
+            bind.editarTxt.setText("Editar renda mensal");
+            bind.editarInformationEdt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            bind.editarInformationEdt.setText(String.valueOf(viewModel.getCurrentClient().getRendaMensal()));
+
+        } else if(viewModel.getOptionEdit().equals(PATRIMONIO_EDIT)) {
+
+            bind.editarTxt.setText("Editar patrimônio líquido");
+            bind.editarInformationEdt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            bind.editarInformationEdt.setText(String.valueOf(viewModel.getCurrentClient().getPatrimonioLiquido()));
 
         } else {
 

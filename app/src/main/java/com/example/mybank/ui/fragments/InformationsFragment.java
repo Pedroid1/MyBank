@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentInformationsBinding;
+import com.example.mybank.ui.utils.StringUtils;
 
 public class InformationsFragment extends Fragment {
 
@@ -34,6 +35,18 @@ public class InformationsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         bind.setViewModel(viewModel);
 
+        updateUi();
+
+        listeners();
+
+    }
+
+    private void updateUi() {
+        bind.rendaMensalClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getRendaMensal()));
+        bind.patrimonioClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getPatrimonioLiquido()));
+    }
+
+    private void listeners() {
         bind.backImg.setOnClickListener(view1 -> {
             replaceProfileFragment();
         });
@@ -58,6 +71,13 @@ public class InformationsFragment extends Fragment {
             replaceEditFragment(EditInformationsFragment.PHONE_EDIT);
         });
 
+        bind.rendaEdit.setOnClickListener(view1 -> {
+            replaceEditFragment(EditInformationsFragment.RENDA_EDIT);
+        });
+
+        bind.patrimonioEdit.setOnClickListener(view1 -> {
+            replaceEditFragment(EditInformationsFragment.PATRIMONIO_EDIT);
+        });
     }
 
     private void replaceProfileFragment() {

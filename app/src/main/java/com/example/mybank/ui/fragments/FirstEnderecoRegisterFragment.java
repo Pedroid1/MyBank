@@ -56,7 +56,7 @@ public class FirstEnderecoRegisterFragment extends Fragment {
         });
 
         bind.backImg.setOnClickListener(view1 -> {
-            replaceSecondRegisterFragment();
+            replaceThirdRegisterFragment();
         });
     }
 
@@ -66,9 +66,9 @@ public class FirstEnderecoRegisterFragment extends Fragment {
         });
     }
 
-    private void replaceSecondRegisterFragment() {
+    private void replaceThirdRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ThirdRegisterFragment()).commit();
     }
 
     private void replaceSecondEnderecoRegisterFragment() {

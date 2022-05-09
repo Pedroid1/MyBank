@@ -5,39 +5,27 @@ public class Client {
     private String name, cpf, date, email, phone, senha;
     //Endereço
     private String cep, state, city, district, address, number;
+    //Renda
+    Double rendaMensal;
+    Double patrimonioLiquido;
 
     public Client() {
     }
 
-    public Client(String name, String cpf, String date, String email, String phone, String senha, String cep, String state, String city, String district, String address, String number) {
-        this.name = name;
-        this.cpf = cpf;
-        this.date = date;
-        this.email = email;
-        this.phone = phone;
-        this.senha = senha;
-        this.cep = cep;
-        this.state = state;
-        this.city = city;
-        this.district = district;
-        this.address = address;
-        this.number = number;
+    public Double getRendaMensal() {
+        return rendaMensal;
     }
 
-    public Client(Integer id, String name, String cpf, String date, String email, String phone, String senha, String cep, String state, String city, String district, String address, String number) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.date = date;
-        this.email = email;
-        this.phone = phone;
-        this.senha = senha;
-        this.cep = cep;
-        this.state = state;
-        this.city = city;
-        this.district = district;
-        this.address = address;
-        this.number = number;
+    public void setRendaMensal(Double rendaMensal) {
+        this.rendaMensal = rendaMensal;
+    }
+
+    public Double getPatrimonioLiquido() {
+        return patrimonioLiquido;
+    }
+
+    public void setPatrimonioLiquido(Double patrimonioLiquido) {
+        this.patrimonioLiquido = patrimonioLiquido;
     }
 
     public String getNumber() {

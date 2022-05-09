@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.fragments.FirstEnderecoRegisterFragment">
+    android:layout_height="match_parent">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:context=".ui.fragments.ConfirmEmailFragment">
 
         <ImageView
             android:id="@+id/back_img"
@@ -25,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/endereco"
+            android:text="@string/confirmar_email"
             android:textAllCaps="true"
             android:textColor="@color/laranja"
             android:textSize="20sp"
@@ -47,45 +46,54 @@
             app:layout_constraintTop_toBottomOf="@id/back_img" />
 
         <TextView
-            android:id="@+id/cep_txt"
+            android:id="@+id/codigo_enviado_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/cep"
-            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/codigo_enviado"
+            android:textColor="@color/black2"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider" />
 
-        <com.santalu.maskara.widget.MaskEditText
-            android:id="@+id/cep_edt"
+        <TextView
+            android:id="@+id/codigo_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/codigo"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/codigo_enviado_txt" />
+
+        <EditText
+            android:id="@+id/codigo_edt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:inputType="textPostalAddress"
+            android:inputType="number"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cep_txt"
-            app:mask="_____-___"
-            app:maskCharacter="_"
-            app:maskStyle="completable" />
+            app:layout_constraintTop_toBottomOf="@id/codigo_txt" />
 
-        <android.widget.Button
-            android:id="@+id/continuar_btn"
+        <include
+            android:id="@+id/finish_btn"
+            layout="@layout/progress_button"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/btn_custom"
-            android:backgroundTint="@color/laranja"
-            android:text="@string/continuar"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/cep_edt"
-            app:layout_constraintStart_toStartOf="@id/cep_edt"
-            app:layout_constraintTop_toBottomOf="@id/cep_edt" />
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/codigo_edt"
+            app:layout_constraintStart_toStartOf="@id/codigo_edt"
+            app:layout_constraintTop_toBottomOf="@id/codigo_edt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

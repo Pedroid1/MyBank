@@ -23,8 +23,21 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<String> cpf = new MutableLiveData<>();
     private MutableLiveData<String> data = new MutableLiveData<>();
     private MutableLiveData<String> phone = new MutableLiveData<>();
+
     private MutableLiveData<String> city = new MutableLiveData<>();
     private MutableLiveData<String> state = new MutableLiveData<>();
+
+    private MutableLiveData<String> renda = new MutableLiveData<>();
+    private MutableLiveData<String> patrimonio = new MutableLiveData<>();
+
+
+    public LiveData<String> getRenda() {
+        return renda;
+    }
+
+    public LiveData<String> getPatrimonio() {
+        return patrimonio;
+    }
 
     public LiveData<String> getName() {
         return name;
@@ -66,8 +79,12 @@ public class HomeViewModel extends ViewModel {
         cpf.setValue(currentClient.getCpf());
         data.setValue(currentClient.getDate());
         phone.setValue(currentClient.getPhone());
+
         city.setValue(currentClient.getCity());
         state.setValue(currentClient.getState());
+
+        patrimonio.setValue(String.valueOf(currentClient.getPatrimonioLiquido()));
+        renda.setValue(String.valueOf(currentClient.getRendaMensal()));
     }
 
     public MyDatabaseHelper getMyDB() {

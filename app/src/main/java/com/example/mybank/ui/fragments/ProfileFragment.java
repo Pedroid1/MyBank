@@ -38,22 +38,8 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        if(viewModel.getMyDB() == null)
-            viewModel.setMyDB(requireActivity());
+
         updateUi();
-
-        if(viewModel.getCurrentClient() == null) {
-            Bundle args = getArguments();
-            if(args != null) {
-                String email = args.getString(HomeActivity.EMAIL_KEY);
-                String senha = args.getString(HomeActivity.SENHA_KEY);
-
-                Client currentClient = viewModel.getMyDB().findClientByEmailAndPassword(email, senha);
-                if(currentClient != null) {
-                    viewModel.setCurrentClient(currentClient);
-                }
-            }
-        }
 
         bind.informationsCard.setOnClickListener(view1 -> {
             replaceInformationsFragment();
