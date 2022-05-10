@@ -1,13 +1,16 @@
 package com.example.mybank.ui.fragments;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,6 +36,7 @@ public class FirstRegisterFragment extends Fragment {
         return bind.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,26 +61,41 @@ public class FirstRegisterFragment extends Fragment {
                 email = bind.emailEdt.getText().toString().trim();
                 phone = bind.phoneEdt.getText().toString().trim();
 
-                if (StringUtils.validateEmail(email)) {
-                    if (!myDB.checkEmail(email)) {
-                        if (CpfCnpjUtils.isValid(cpf)) {
-                            if (!myDB.checkCpf(cpf)) {
-                                viewModel.setName(name);
-                                viewModel.setCpf(cpf);
-                                viewModel.setDate(date);
-                                viewModel.setEmail(email);
-                                viewModel.setPhone(phone);
-                                replaceSecondRegisterFragment();
-                            } else {
-                                EditTextError.setEdtError(bind.cpfEdt, "Esse Cpf pertence a outra conta", requireContext());
-                            }
-                        } else
-                            EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());
-                    } else
-                        EditTextError.setEdtError(bind.emailEdt, "Esse email pertence a outra conta!", requireContext());
-                } else
+                if(!CpfCnpjUtils.isValid(cpf)) {
+                    EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());
+                    return;
+                }
+                if(myDB.checkCpf(cpf)) {
+                    EditTextError.setEdtError(bind.cpfEdt, "Cpf já cadastrado no sistema", requireContext());
+                    return;
+                }
+                if(!StringUtils.isValid(date)) {
+                    EditTextError.setEdtError(bind.dataEdt, "Data inválida", requireContext());
+                    return;
+                }
+                if(StringUtils.calculoIdade(date) < 18) {
+                    EditTextError.setEdtError(bind.dataEdt, "Cadastro indisponível para menores de 18 anos", requireContext());
+                    return;
+                }
+                if(!StringUtils.validateEmail(email)) {
                     EditTextError.setEdtError(bind.emailEdt, "Email inválido", requireContext());
+                    return;
+                }
+                if(myDB.checkEmail(email)) {
+                    EditTextError.setEdtError(bind.emailEdt, "Esse email pertence a outra conta!", requireContext());
+                    return;
+                }
+                if(!StringUtils.validatePhone(phone)) {
+                    EditTextError.setEdtError(bind.phoneEdt, "Número de celular inválido", requireContext());
+                    return;
+                }
 
+                viewModel.setName(name);
+                viewModel.setCpf(cpf);
+                viewModel.setDate(date);
+                viewModel.setEmail(email);
+                viewModel.setPhone(phone);
+                replaceSecondRegisterFragment();
 
             } else {
                 if (bind.nameEdt.getText().toString().isEmpty())
@@ -84,13 +103,13 @@ public class FirstRegisterFragment extends Fragment {
                 else if (bind.nameEdt.getText().toString().length() < 10)
                     EditTextError.setEdtError(bind.nameEdt, "Nome inválido", requireContext());
                 else if (!bind.cpfEdt.isDone())
-                    EditTextError.setEdtError(bind.cpfEdt, "Complete o campo", requireContext());
+                    EditTextError.setEdtError(bind.cpfEdt, "Campo obrigatório", requireContext());
                 else if (!bind.dataEdt.isDone())
-                    EditTextError.setEdtError(bind.dataEdt, "Complete o campo", requireContext());
+                    EditTextError.setEdtError(bind.dataEdt, "Campo obrigatório", requireContext());
                 else if (bind.emailEdt.getText().toString().isEmpty())
                     EditTextError.setEdtError(bind.emailEdt, "Campo obrigatório", requireContext());
                 else
-                    EditTextError.setEdtError(bind.phoneEdt, "Complete o campo", requireContext());
+                    EditTextError.setEdtError(bind.phoneEdt, "Campo obrigatório", requireContext());
 
             }
 

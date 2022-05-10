@@ -1,8 +1,10 @@
 package com.example.mybank.ui.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,11 +12,13 @@ import android.widget.Button;
 
 import com.example.mybank.R;
 import com.example.mybank.database.MyDatabaseHelper;
+import com.example.mybank.ui.utils.StringUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button loginBtn, registerBtn;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

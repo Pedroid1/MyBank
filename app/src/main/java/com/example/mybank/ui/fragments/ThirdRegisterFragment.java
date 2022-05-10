@@ -41,7 +41,7 @@ public class ThirdRegisterFragment extends Fragment {
             renda = bind.rendaEdt.getText().toString().trim();
             patrimonio = bind.patrimonioEdt.getText().toString().trim();
 
-            if (!renda.isEmpty() || !patrimonio.isEmpty()) {
+            if (!renda.isEmpty() && !patrimonio.isEmpty()) {
                 //Adicionar limites minimos de renda
                 //----------------------------------
 

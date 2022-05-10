@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
@@ -101,6 +102,10 @@ public class ConfirmEmailFragment extends Fragment {
             finishBtn.setClickable(true);
         });
 
+        bind.backImg.setOnClickListener(view1 -> {
+            replaceSecondEnderecoRegisterFragment();
+        });
+
     }
 
     private void sendEmail() {
@@ -127,6 +132,10 @@ public class ConfirmEmailFragment extends Fragment {
         }
     }
 
+    private void replaceSecondEnderecoRegisterFragment() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, new SecondEnderecoRegisterFragment()).commit();
+    }
 
     class RetreiveFeedTask extends AsyncTask<String, Void, String> {
 
