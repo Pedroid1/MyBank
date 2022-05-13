@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mybank.R;
-import com.example.mybank.model.Client;
+import com.example.mybank.model.Cliente;
 import com.example.mybank.ui.fragments.HomeViewModel;
 import com.example.mybank.ui.fragments.ProfileFragment;
 
@@ -26,8 +26,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        if(viewModel.getMyDB() == null)
-            viewModel.setMyDB(this);
+
 
         if(viewModel.getCurrentClient() == null) {
             Intent intent = getIntent();
@@ -35,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
             email = intent.getStringExtra(EMAIL_KEY);
             senha = intent.getStringExtra(SENHA_KEY);
 
-            Client currentClient = viewModel.getMyDB().findClientByEmailAndPassword(email, senha);
+            Cliente currentClient = null;
             if(currentClient != null) {
                 viewModel.setCurrentClient(currentClient);
             }

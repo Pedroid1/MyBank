@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentProfileBinding;
-import com.example.mybank.model.Client;
-import com.example.mybank.ui.activity.HomeActivity;
 import com.example.mybank.ui.activity.MainActivity;
 
 
@@ -57,7 +55,7 @@ public class ProfileFragment extends Fragment {
             dialog.setTitle("Deletar conta");
             dialog.setMessage("Tem certeza que deseja deletar sua conta?");
             dialog.setPositiveButton("Sim", (dialogInterface, i) -> {
-                viewModel.getMyDB().deleteClientById(viewModel.getCurrentClient().getId());
+                //TODO
                 Intent intent = new Intent(requireActivity(), MainActivity.class);
                 requireActivity().startActivity(intent);
                 requireActivity().finish();
@@ -70,14 +68,14 @@ public class ProfileFragment extends Fragment {
 
     private void replaceInformationsFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {
-        viewModel.getName().observe(requireActivity(), name -> {
+        viewModel.nomeObserver().observe(requireActivity(), name -> {
             bind.nameTxt.setText(name);
         });
-        viewModel.getEmail().observe(requireActivity(), email -> {
+        viewModel.emailObserver().observe(requireActivity(), email -> {
             bind.emailTxt.setText(email);
         });
     }

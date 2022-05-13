@@ -50,11 +50,13 @@ public class EditInformationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         if (viewModel.getOptionEdit() == null) {
             Bundle args = getArguments();
             viewModel.setOptionEdit(args.getString(KEY_EDIT));
         }
+
 
         updateUi();
 
@@ -146,8 +148,9 @@ public class EditInformationsFragment extends Fragment {
             replaceInformationsFragment();
         });
 
+        */
     }
-
+/*
     private void updateUi() {
         if (viewModel.getOptionEdit().equals(NAME_EDIT) || viewModel.getOptionEdit().equals(EMAIL_EDIT) || viewModel.getOptionEdit().equals(RENDA_EDIT) || viewModel.getOptionEdit().equals(PATRIMONIO_EDIT)) {
             bind.editarInformationEdt.setVisibility(View.VISIBLE);
@@ -233,4 +236,6 @@ public class EditInformationsFragment extends Fragment {
 
         }, 2000);
     }
+
+ */
 }

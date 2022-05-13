@@ -6,17 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mybank.R;
-import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.FragmentFirstRegisterBinding;
 import com.example.mybank.ui.activity.LoginActivity;
 import com.example.mybank.ui.utils.CpfCnpjUtils;
@@ -27,7 +25,6 @@ public class FirstRegisterFragment extends Fragment {
 
     private FragmentFirstRegisterBinding bind;
     private RegisterViewModel viewModel;
-    private MyDatabaseHelper myDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,8 +37,6 @@ public class FirstRegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        myDB = new MyDatabaseHelper(requireActivity());
 
         viewModel = new ViewModelProvider(getActivity()).get(RegisterViewModel.class);
         updateUi();
@@ -65,10 +60,6 @@ public class FirstRegisterFragment extends Fragment {
                     EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());
                     return;
                 }
-                if(myDB.checkCpf(cpf)) {
-                    EditTextError.setEdtError(bind.cpfEdt, "Cpf já cadastrado no sistema", requireContext());
-                    return;
-                }
                 if(!StringUtils.isValid(date)) {
                     EditTextError.setEdtError(bind.dataEdt, "Data inválida", requireContext());
                     return;
@@ -81,20 +72,16 @@ public class FirstRegisterFragment extends Fragment {
                     EditTextError.setEdtError(bind.emailEdt, "Email inválido", requireContext());
                     return;
                 }
-                if(myDB.checkEmail(email)) {
-                    EditTextError.setEdtError(bind.emailEdt, "Esse email pertence a outra conta!", requireContext());
-                    return;
-                }
                 if(!StringUtils.validatePhone(phone)) {
                     EditTextError.setEdtError(bind.phoneEdt, "Número de celular inválido", requireContext());
                     return;
                 }
 
-                viewModel.setName(name);
+                viewModel.setNome(name);
                 viewModel.setCpf(cpf);
                 viewModel.setDate(date);
                 viewModel.setEmail(email);
-                viewModel.setPhone(phone);
+                viewModel.setCelular(phone);
                 replaceSecondRegisterFragment();
 
             } else {
@@ -127,28 +114,28 @@ public class FirstRegisterFragment extends Fragment {
     }
 
     private void replaceSecondRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, new SecondRegisterFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {
-        viewModel.getName().observe(requireActivity(), name -> {
+        viewModel.nomeObserver().observe(requireActivity(), name -> {
             bind.nameEdt.setText(name);
         });
 
-        viewModel.getCpf().observe(requireActivity(), cpf -> {
+        viewModel.cpfObserver().observe(requireActivity(), cpf -> {
             bind.cpfEdt.setText(cpf);
         });
 
-        viewModel.getDate().observe(requireActivity(), date -> {
+        viewModel.dateObserver().observe(requireActivity(), date -> {
             bind.dataEdt.setText(date);
         });
 
-        viewModel.getEmail().observe(requireActivity(), email -> {
+        viewModel.emailObserver().observe(requireActivity(), email -> {
             bind.emailEdt.setText(email);
         });
 
-        viewModel.getPhone().observe(requireActivity(), phone -> {
+        viewModel.celularObserver().observe(requireActivity(), phone -> {
             bind.phoneEdt.setText(phone);
         });
     }

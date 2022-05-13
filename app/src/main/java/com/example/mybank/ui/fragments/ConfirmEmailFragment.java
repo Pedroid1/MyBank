@@ -82,9 +82,10 @@ public class ConfirmEmailFragment extends Fragment {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
                             intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
-                            requireActivity().startActivity(intent);
 
-                            finishBtn.setClickable(true);
+                            popBackStack();
+
+                            requireActivity().startActivity(intent);
                             requireActivity().finish();
 
                         }, 2000);
@@ -103,13 +104,19 @@ public class ConfirmEmailFragment extends Fragment {
         });
 
         bind.backImg.setOnClickListener(view1 -> {
-            replaceSecondEnderecoRegisterFragment();
+            backFragment();
         });
 
     }
 
+    private void popBackStack() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+    }
+
     private void sendEmail() {
         if (!viewModel.isSendEmail()) {
+            viewModel.setSendEmail(true);
             viewModel.setCodeSent(generateEmailCode());
 
             Properties props = new Properties();
@@ -132,9 +139,8 @@ public class ConfirmEmailFragment extends Fragment {
         }
     }
 
-    private void replaceSecondEnderecoRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondEnderecoRegisterFragment()).commit();
+    private void backFragment() {
+        requireActivity().onBackPressed();
     }
 
     class RetreiveFeedTask extends AsyncTask<String, Void, String> {

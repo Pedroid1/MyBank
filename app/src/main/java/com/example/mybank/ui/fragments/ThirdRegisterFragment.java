@@ -45,10 +45,10 @@ public class ThirdRegisterFragment extends Fragment {
                 //Adicionar limites minimos de renda
                 //----------------------------------
 
-                viewModel.setRendaMensal(Double.parseDouble(renda));
-                viewModel.setPatrimonioLiquido(Double.parseDouble(patrimonio));
+                viewModel.setRenda(Double.parseDouble(renda));
+                viewModel.setPatrimonio(Double.parseDouble(patrimonio));
 
-                replaceFirstEnderecoRegisterFragment();
+                replaceConfirmEmailFragment();
 
             } else {
                 if (renda.isEmpty()) {
@@ -62,27 +62,26 @@ public class ThirdRegisterFragment extends Fragment {
         });
 
         bind.backImg.setOnClickListener(view1 -> {
-            replaceSecondRegisterFragment();
+            backFragment();
         });
 
     }
 
     private void updateUi() {
-        viewModel.getRendaMensal().observe(requireActivity(), renda -> {
+        viewModel.rendaObserver().observe(requireActivity(), renda -> {
             bind.rendaEdt.setText(String.valueOf(renda));
         });
-        viewModel.getPatrimonioLiquido().observe(requireActivity(), patrimonio -> {
+        viewModel.patrimonioObserver().observe(requireActivity(), patrimonio -> {
             bind.patrimonioEdt.setText(String.valueOf(patrimonio));
         });
     }
 
-    private void replaceSecondRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
+    private void backFragment() {
+        requireActivity().onBackPressed();
     }
 
-    private void replaceFirstEnderecoRegisterFragment() {
+    private void replaceConfirmEmailFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ConfirmEmailFragment()).addToBackStack(null).commit();
     }
 }

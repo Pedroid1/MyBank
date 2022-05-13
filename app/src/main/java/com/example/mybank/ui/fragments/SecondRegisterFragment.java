@@ -64,25 +64,24 @@ public class SecondRegisterFragment extends Fragment {
         });
 
         bind.backImg.setOnClickListener(view1 -> {
-            replaceFirstRegisterFragment();
+            backFragment();
         });
     }
 
     private void updateUi() {
-        viewModel.getSenha().observe(requireActivity(), senha -> {
+        viewModel.senhaObserver().observe(requireActivity(), senha -> {
             bind.senha1Edt.setText(senha);
             bind.senha2Edt.setText(senha);
         });
     }
 
 
-    private void replaceFirstRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new FirstRegisterFragment()).commit();
+    private void backFragment() {
+        requireActivity().onBackPressed();
     }
 
     private void replaceThirdRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new ThirdRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ThirdRegisterFragment()).addToBackStack(null).commit();
     }
 }
