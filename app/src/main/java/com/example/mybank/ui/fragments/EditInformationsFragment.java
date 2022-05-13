@@ -157,7 +157,7 @@ public class EditInformationsFragment extends Fragment {
 
         if (viewModel.getOptionEdit().equals(NAME_EDIT)) {
             bind.editarTxt.setText("Editar nome");
-            bind.editarInformationEdt.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+            bind.editarInformationEdt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
             bind.editarInformationEdt.setText(viewModel.getCurrentClient().getName());
 
         } else if (viewModel.getOptionEdit().equals(CPF_EDIT)) {
@@ -185,19 +185,19 @@ public class EditInformationsFragment extends Fragment {
         } else if (viewModel.getOptionEdit().equals(EMAIL_EDIT)) {
 
             bind.editarTxt.setText("Editar email");
-            bind.editarInformationEdt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            bind.editarInformationEdt.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
             bind.editarInformationEdt.setText(viewModel.getCurrentClient().getEmail());
 
         } else if(viewModel.getOptionEdit().equals(RENDA_EDIT)) {
 
             bind.editarTxt.setText("Editar renda mensal");
-            bind.editarInformationEdt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            bind.editarInformationEdt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             bind.editarInformationEdt.setText(String.valueOf(viewModel.getCurrentClient().getRendaMensal()));
 
         } else if(viewModel.getOptionEdit().equals(PATRIMONIO_EDIT)) {
 
             bind.editarTxt.setText("Editar patrimônio líquido");
-            bind.editarInformationEdt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            bind.editarInformationEdt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             bind.editarInformationEdt.setText(String.valueOf(viewModel.getCurrentClient().getPatrimonioLiquido()));
 
         } else {

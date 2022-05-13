@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:inputType="textPersonName|textCapSentences"
+            android:inputType="textPersonName|textCapWords"
             android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/cpf_txt"
             app:layout_constraintEnd_toEndOf="@id/cpf_edt"
