@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     private static final String BASE_URL =
-            "https://cep.awesomeapi.com.br/json/";
+            "";
 
     private static Retrofit retrofit = null;
 

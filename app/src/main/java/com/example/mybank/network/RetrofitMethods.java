@@ -6,6 +6,4 @@ import retrofit2.http.Path;
 
 public interface RetrofitMethods {
 
-    @GET("{cep}")
-    Call<Endereco> getCep(@Path("cep") String cep);
 }

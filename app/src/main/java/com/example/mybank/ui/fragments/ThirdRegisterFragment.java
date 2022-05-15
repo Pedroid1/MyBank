@@ -41,24 +41,19 @@ public class ThirdRegisterFragment extends Fragment {
             renda = bind.rendaEdt.getText().toString().trim();
             patrimonio = bind.patrimonioEdt.getText().toString().trim();
 
-            if (!renda.isEmpty() && !patrimonio.isEmpty()) {
-                //Adicionar limites minimos de renda
-                //----------------------------------
-
-                viewModel.setRenda(Double.parseDouble(renda));
-                viewModel.setPatrimonio(Double.parseDouble(patrimonio));
-
-                replaceConfirmEmailFragment();
-
-            } else {
-                if (renda.isEmpty()) {
-                    EditTextError.setEdtError(bind.rendaEdt, "Campo obrigatório", requireContext());
-                } else if (patrimonio.isEmpty()) {
-                    EditTextError.setEdtError(bind.patrimonioEdt, "Campo obrigatório", requireContext());
-                } else {
-
-                }
+            if (renda.isEmpty()) {
+                EditTextError.setEdtError(bind.rendaEdt, "Campo obrigatório", requireContext());
+                return;
             }
+            if (patrimonio.isEmpty()) {
+                EditTextError.setEdtError(bind.patrimonioEdt, "Campo obrigatório", requireContext());
+                return;
+            }
+
+            viewModel.setRenda(Double.parseDouble(renda));
+            viewModel.setPatrimonio(Double.parseDouble(patrimonio));
+            replaceConfirmEmailFragment();
+
         });
 
         bind.backImg.setOnClickListener(view1 -> {

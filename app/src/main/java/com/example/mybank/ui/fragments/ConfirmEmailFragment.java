@@ -68,37 +68,36 @@ public class ConfirmEmailFragment extends Fragment {
             finishBtn.setClickable(false);
             String codigo = bind.codigoEdt.getText().toString().trim();
 
-            if (!codigo.isEmpty()) {
-
-                progressButton.buttonActivated();
-
-                new Handler().postDelayed(() -> {
-
-                    if (codigo.equals(String.valueOf(viewModel.getCodeSent()))) {
-                        progressButton.buttonFinishedSuccess();
-                        new Handler().postDelayed(() -> {
-
-                            Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
-                            intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
-
-                            popBackStack();
-
-                            requireActivity().startActivity(intent);
-                            requireActivity().finish();
-
-                        }, 2000);
-                    } else {
-                        progressButton.buttonFinishedFail();
-
-                        new Handler().postDelayed(progressButton::resetButton, 2000);
-                    }
-                }, 3000);
-
-            } else {
-                EditTextError.setEdtError(bind.codigoEdt, "Preencha o campo", requireContext());
+            if (codigo.isEmpty()) {
+                EditTextError.setEdtError(bind.codigoEdt, "Campo obrigatório", requireContext());
+                return;
             }
+
+            progressButton.buttonActivated();
+            new Handler().postDelayed(() -> {
+
+                if (codigo.equals(String.valueOf(viewModel.getCodeSent()))) {
+                    progressButton.buttonFinishedSuccess();
+                    new Handler().postDelayed(() -> {
+
+                        Intent intent = new Intent(requireActivity(), HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
+                        intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
+
+                        popBackStack();
+
+                        requireActivity().startActivity(intent);
+                        requireActivity().finish();
+
+                    }, 2000);
+                } else {
+                    progressButton.buttonFinishedFail();
+
+                    new Handler().postDelayed(progressButton::resetButton, 2000);
+                }
+            }, 3000);
+
 
             finishBtn.setClickable(true);
         });

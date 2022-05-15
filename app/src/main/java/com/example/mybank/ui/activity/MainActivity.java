@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.mybank.R;
-import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.ui.utils.StringUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //MyDatabaseHelper myDb = new MyDatabaseHelper(this);
-        //myDb.deleteAllData();
 
         //FullScreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

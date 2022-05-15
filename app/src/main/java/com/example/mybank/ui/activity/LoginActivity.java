@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.view.View;
 
 import com.example.mybank.R;
-import com.example.mybank.database.MyDatabaseHelper;
 import com.example.mybank.databinding.ActivityLoginBinding;
 import com.example.mybank.ui.ProgressButton;
 import com.example.mybank.ui.utils.EditTextError;
@@ -17,7 +16,6 @@ import com.example.mybank.ui.utils.StringUtils;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding bind;
-    private MyDatabaseHelper myDB;
     private View loginBtn;
 
     @Override
@@ -25,9 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-
-        myDB = new MyDatabaseHelper(this);
-
+/*
         loginBtn = findViewById(R.id.login_btn);
         ProgressButton progressButton = new ProgressButton(this,
                 "Entrar",
@@ -94,5 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         bind.backImg.setOnClickListener(view -> {
             finish();
         });
+
+ */
     }
 }

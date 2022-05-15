@@ -33,7 +33,6 @@ public class InformationsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        bind.setViewModel(viewModel);
 
         updateUi();
 
@@ -42,8 +41,8 @@ public class InformationsFragment extends Fragment {
     }
 
     private void updateUi() {
-        bind.rendaMensalClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getRendaMensal()));
-        bind.patrimonioClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getPatrimonioLiquido()));
+        bind.rendaMensalClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getRenda()));
+        bind.patrimonioClientTxt.setText(StringUtils.getCurrencyInstance(viewModel.getCurrentClient().getPatrimonio()));
     }
 
     private void listeners() {

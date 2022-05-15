@@ -40,27 +40,31 @@ public class SecondRegisterFragment extends Fragment {
             sSenha1 = bind.senha1Edt.getText().toString().trim();
             sSenha2 = bind.senha2Edt.getText().toString().trim();
 
-            if (sSenha1.isEmpty() || sSenha2.isEmpty()) {
-                if (sSenha1.isEmpty())
-                    EditTextError.setEdtError(bind.senha1Edt, "Campo obrigatório", requireContext());
-                else
-                    EditTextError.setEdtError(bind.senha2Edt, "Campo obrigatório", requireContext());
-            } else {
-                if (sSenha1.length() < 4 || sSenha2.length() < 4 ) {
-                    if(sSenha1.length() < 4)
-                        EditTextError.setEdtError(bind.senha1Edt, "A senha deve conter 4 números", requireContext());
-                    else
-                        EditTextError.setEdtError(bind.senha2Edt, "A senha deve conter 4 números", requireContext());
-                } else {
-
-                    if(!sSenha1.equals(sSenha2)) {
-                        EditTextError.setEdtError(bind.senha2Edt, "As senhas não correspondem!", requireContext());
-                    } else {
-                        viewModel.setSenha(sSenha1);
-                        replaceThirdRegisterFragment();
-                    }
-                }
+            if(sSenha1.isEmpty()) {
+                EditTextError.setEdtError(bind.senha1Edt, "Campo obrigatório", requireContext());
+                return;
             }
+            if(sSenha2.isEmpty()) {
+                EditTextError.setEdtError(bind.senha2Edt, "Campo obrigatório", requireContext());
+                return;
+            }
+            if(sSenha1.length() < 4) {
+                EditTextError.setEdtError(bind.senha1Edt, "A senha deve conter 4 números", requireContext());
+                return;
+            }
+            if(sSenha2.length() < 4) {
+                EditTextError.setEdtError(bind.senha2Edt, "A senha deve conter 4 números", requireContext());
+                return;
+            }
+
+            if(!sSenha1.equals(sSenha2)) {
+                EditTextError.setEdtError(bind.senha2Edt, "As senhas não correspondem!", requireContext());
+                return;
+            } else {
+                viewModel.setSenha(sSenha1);
+                replaceThirdRegisterFragment();
+            }
+
         });
 
         bind.backImg.setOnClickListener(view1 -> {
