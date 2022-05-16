@@ -29,13 +29,18 @@ public class HomeViewModel extends ViewModel {
         nome.setValue(currentClient.getNome());
         email.setValue(currentClient.getEmail());
         cpf.setValue(currentClient.getCpf());
-
-        //Parse Date to String
-        //date.setValue(currentClient.getDataNascimento());
-
+        date.setValue(currentClient.getDataNascimento());
         celular.setValue(currentClient.getCelular());
         patrimonio.setValue(String.valueOf(currentClient.getPatrimonio()));
         renda.setValue(String.valueOf(currentClient.getRenda()));
+    }
+
+    public String getOptionEdit() {
+        return optionEdit;
+    }
+
+    public void setOptionEdit(String optionEdit) {
+        this.optionEdit = optionEdit;
     }
 
     public LiveData<String> nomeObserver() {

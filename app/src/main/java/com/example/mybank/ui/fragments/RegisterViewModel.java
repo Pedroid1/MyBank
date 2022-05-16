@@ -57,8 +57,7 @@ public class RegisterViewModel extends ViewModel {
     }
 
     public void setDate(String date) {
-        //Converto to date
-        //this.client.setDataNascimento(date);
+        this.client.setDataNascimento(date);
         this.date.setValue(date);
     }
 

@@ -39,12 +39,17 @@ public class ProfileFragment extends Fragment {
 
         updateUi();
 
+        bind.backImg.setOnClickListener(view1 -> {
+            backFragment();
+        });
+
         bind.informationsCard.setOnClickListener(view1 -> {
             replaceInformationsFragment();
         });
 
 
         bind.sairBtn.setOnClickListener(view1 -> {
+            popBackStack();
             Intent intent = new Intent(requireActivity(), MainActivity.class);
             requireActivity().startActivity(intent);
             requireActivity().finish();
@@ -55,7 +60,9 @@ public class ProfileFragment extends Fragment {
             dialog.setTitle("Deletar conta");
             dialog.setMessage("Tem certeza que deseja deletar sua conta?");
             dialog.setPositiveButton("Sim", (dialogInterface, i) -> {
-                //TODO
+                //Fazer deleção
+
+                popBackStack();
                 Intent intent = new Intent(requireActivity(), MainActivity.class);
                 requireActivity().startActivity(intent);
                 requireActivity().finish();
@@ -64,6 +71,15 @@ public class ProfileFragment extends Fragment {
             });
             dialog.show();
         });
+    }
+
+    private void popBackStack() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+    }
+
+    private void backFragment() {
+        requireActivity().onBackPressed();
     }
 
     private void replaceInformationsFragment() {

@@ -1,26 +1,33 @@
 package com.example.mybank.model;
 
-import java.util.Date;
-
 public class Cliente {
-    private Integer id;
+    private Integer idCliente;
     private String cpf;
     private String nome;
     private String email;
-    private Date dataNascimento;
+    private String dataNascimento;
     private Double renda;
     private Double patrimonio;
     private String celular;
+    private Integer conta;
     private Integer agencia;
     private Integer senha;
     private Integer saldo;
 
-    public Integer getId() {
-        return id;
+    public Integer getConta() {
+        return conta;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setConta(Integer conta) {
+        this.conta = conta;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getCpf() {
@@ -47,11 +54,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

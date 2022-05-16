@@ -47,7 +47,7 @@ public class InformationsFragment extends Fragment {
 
     private void listeners() {
         bind.backImg.setOnClickListener(view1 -> {
-            replaceProfileFragment();
+            backFragment();
         });
 
         bind.nameEdit.setOnClickListener(view1 -> {
@@ -79,9 +79,8 @@ public class InformationsFragment extends Fragment {
         });
     }
 
-    private void replaceProfileFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new ProfileFragment()).commit();
+    private void backFragment() {
+        requireActivity().onBackPressed();
     }
 
     private void replaceEditFragment(String edit) {
@@ -89,6 +88,6 @@ public class InformationsFragment extends Fragment {
         args.putString(EditInformationsFragment.KEY_EDIT, edit);
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, EditInformationsFragment.class, args).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, EditInformationsFragment.class, args).addToBackStack(null).commit();
     }
 }

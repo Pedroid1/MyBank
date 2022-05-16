@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentConfirmEmailBinding;
+import com.example.mybank.model.Cliente;
+import com.example.mybank.network.RetrofitInstance;
+import com.example.mybank.network.RetrofitMethods;
 import com.example.mybank.ui.ProgressButton;
 import com.example.mybank.ui.activity.HomeActivity;
 import com.example.mybank.ui.utils.EditTextError;
@@ -27,12 +30,15 @@ import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmEmailFragment extends Fragment {
 
@@ -80,15 +86,7 @@ public class ConfirmEmailFragment extends Fragment {
                     progressButton.buttonFinishedSuccess();
                     new Handler().postDelayed(() -> {
 
-                        Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
-                        intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
-
-                        popBackStack();
-
-                        requireActivity().startActivity(intent);
-                        requireActivity().finish();
+                        cadastrarCliente();
 
                     }, 2000);
                 } else {
@@ -106,6 +104,37 @@ public class ConfirmEmailFragment extends Fragment {
             backFragment();
         });
 
+    }
+
+    private void cadastrarCliente() {
+        RetrofitMethods methods = RetrofitInstance.getRetrofitInstance().create(RetrofitMethods.class);
+        Call<Cliente> data = methods.cadastrarCliente(viewModel.getClient());
+
+        data.enqueue(new Callback<Cliente>() {
+            @Override
+            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                if(response.isSuccessful()) {
+                    viewModel.setClient(response.body());
+
+                    goToHome(viewModel.getClient().getIdCliente());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cliente> call, Throwable t) {
+                Toast.makeText(requireContext(), "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void goToHome(Integer id) {
+        Intent intent = new Intent(requireActivity(), HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(HomeActivity.ID_KEY, id);
+
+        popBackStack();
+        requireActivity().startActivity(intent);
+        requireActivity().finish();
     }
 
     private void popBackStack() {

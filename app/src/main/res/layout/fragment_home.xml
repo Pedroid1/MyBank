@@ -40,6 +40,8 @@
             android:layout_height="60dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/avatar"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="@id/nome_cliente"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txt1_home" />
@@ -72,11 +74,11 @@
         </ScrollView>
 
         <TextView
+            android:id="@+id/txt2_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/txt2_home"
             android:text="Conta"
             android:textColor="@color/black"
             android:textSize="22sp"
@@ -85,14 +87,14 @@
             app:layout_constraintTop_toBottomOf="@id/cartao_scroll" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/informations_card"
-            app:layout_constraintTop_toBottomOf="@id/txt2_home"
-            app:layout_constraintStart_toStartOf="@id/txt2_home"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
+            android:id="@+id/saldo_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txt2_home"
+            app:layout_constraintTop_toBottomOf="@id/txt2_home">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -114,12 +116,53 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/saldo_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/saldo_txt"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:text="R$ 1002,99"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pagamento_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txt2_home"
+            app:layout_constraintTop_toBottomOf="@id/saldo_card">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_custom"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_card" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/pagar_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:text="Pagar ou transferir"
                     android:textSize="18sp" />
             </LinearLayout>
 
