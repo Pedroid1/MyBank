@@ -78,13 +78,14 @@ public class ConfirmEmailFragment extends Fragment {
                         progressButton.buttonFinishedSuccess();
                         new Handler().postDelayed(() -> {
 
+                            popBackStack();
+
                             Intent intent = new Intent(requireActivity(), HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra(HomeActivity.EMAIL_KEY, viewModel.getClient().getEmail());
                             intent.putExtra(HomeActivity.SENHA_KEY, viewModel.getClient().getSenha());
                             requireActivity().startActivity(intent);
 
-                            finishBtn.setClickable(true);
                             requireActivity().finish();
 
                         }, 2000);
@@ -106,6 +107,11 @@ public class ConfirmEmailFragment extends Fragment {
             replaceSecondEnderecoRegisterFragment();
         });
 
+    }
+
+    private void popBackStack() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
     }
 
     private void sendEmail() {

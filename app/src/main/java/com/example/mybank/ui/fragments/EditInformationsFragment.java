@@ -215,8 +215,7 @@ public class EditInformationsFragment extends Fragment {
     }
 
     private void replaceInformationsFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).commit();
+        requireActivity().onBackPressed();
     }
 
     private void updateClient() {

@@ -77,12 +77,11 @@ public class ThirdRegisterFragment extends Fragment {
     }
 
     private void replaceSecondRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
+        requireActivity().onBackPressed();
     }
 
     private void replaceFirstEnderecoRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).addToBackStack(null).commit();
     }
 }

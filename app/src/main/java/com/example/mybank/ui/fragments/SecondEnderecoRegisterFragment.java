@@ -89,13 +89,12 @@ public class SecondEnderecoRegisterFragment extends Fragment {
     }
 
     private void replaceFirstEnderecoRegisterFragment() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new FirstEnderecoRegisterFragment()).commit();
+        requireActivity().onBackPressed();
     }
 
     private void replaceConfirmEmailFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new ConfirmEmailFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new ConfirmEmailFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {

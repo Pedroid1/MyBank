@@ -12,7 +12,7 @@ import com.example.mybank.model.Client;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "JavaBankSa.db";
+    private static final String DATABASE_NAME = "JavaBankSaV.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_NAME = "my_clients";
@@ -23,6 +23,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private  static final String COLUMN_EMAIL = "client_email";
     private  static final String COLUMN_PHONE = "client_phone";
     private  static final String COLUMN_PASSWORD = "client_password";
+    private  static final String COLUMN_SALDO = "client_saldo";
 
     //ENDEREÇO
     private  static final String COLUMN_CEP = "client_cep";
@@ -59,7 +60,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_ADDRESS + " TEXT, " +
                         COLUMN_NUMBER + " TEXT, " +
                         COLUMN_RENDA_MENSAL + " REAL, " +
-                        COLUMN_PATRIMONIO_LIQUIDO + " REAL);";
+                        COLUMN_PATRIMONIO_LIQUIDO + " REAL, " +
+                        COLUMN_SALDO + " REAL);";
 
         db.execSQL(query);
     }
@@ -147,6 +149,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 Client currentClient = new Client();
                 Integer id;
                 String name, cpf, date, phone, senha;
+                Double saldo;
                 //Endereço
                 String cep, state, city, district, address, number;
                 //Renda
@@ -169,6 +172,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
                 renda = cursor.getDouble(13);
                 patrimonio = cursor.getDouble(14);
+                saldo = cursor.getDouble(15);
 
 
                 currentClient.setId(id);
@@ -178,6 +182,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 currentClient.setEmail(email);
                 currentClient.setPhone(phone);
                 currentClient.setSenha(senha);
+                currentClient.setSaldo(saldo);
 
                 currentClient.setCep(cep);
                 currentClient.setState(state);
@@ -216,6 +221,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
         cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
+
+        newClient.setSaldo(999.99d);
+        cv.put(COLUMN_SALDO, newClient.getSaldo());
 
         Long result = db.insert(TABLE_NAME, null, cv);
 
@@ -266,6 +274,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
         cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
+        cv.put(COLUMN_SALDO, newClient.getSaldo());
 
         int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{newClient.getId().toString()});
         if(result == -1) {

@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentProfileBinding;
-import com.example.mybank.model.Client;
-import com.example.mybank.ui.activity.HomeActivity;
 import com.example.mybank.ui.activity.MainActivity;
 
 
@@ -40,6 +38,10 @@ public class ProfileFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
         updateUi();
+
+        bind.backImg.setOnClickListener(view1 -> {
+            replaceHomeFragment();
+        });
 
         bind.informationsCard.setOnClickListener(view1 -> {
             replaceInformationsFragment();
@@ -68,9 +70,13 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void replaceHomeFragment() {
+        requireActivity().onBackPressed();
+    }
+
     private void replaceInformationsFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new InformationsFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {

@@ -128,7 +128,7 @@ public class FirstRegisterFragment extends Fragment {
 
     private void replaceSecondRegisterFragment() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new SecondRegisterFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {

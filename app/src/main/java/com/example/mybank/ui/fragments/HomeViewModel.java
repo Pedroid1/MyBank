@@ -30,7 +30,6 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<String> renda = new MutableLiveData<>();
     private MutableLiveData<String> patrimonio = new MutableLiveData<>();
 
-
     public LiveData<String> getRenda() {
         return renda;
     }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.mybank.R;
 import com.example.mybank.model.Client;
+import com.example.mybank.ui.fragments.HomeFragment;
 import com.example.mybank.ui.fragments.HomeViewModel;
 import com.example.mybank.ui.fragments.ProfileFragment;
 
@@ -26,27 +27,27 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        if(viewModel.getMyDB() == null)
+        if (viewModel.getMyDB() == null)
             viewModel.setMyDB(this);
 
-        if(viewModel.getCurrentClient() == null) {
+        if (viewModel.getCurrentClient() == null) {
             Intent intent = getIntent();
             String email, senha;
             email = intent.getStringExtra(EMAIL_KEY);
             senha = intent.getStringExtra(SENHA_KEY);
 
             Client currentClient = viewModel.getMyDB().findClientByEmailAndPassword(email, senha);
-            if(currentClient != null) {
+            if (currentClient != null) {
                 viewModel.setCurrentClient(currentClient);
             }
         }
 
-        replaceProfileFragment();
+        replaceHomeFragment();
     }
 
-    private void replaceProfileFragment() {
+    private void replaceHomeFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, new ProfileFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, new HomeFragment()).commit();
     }
 
 }

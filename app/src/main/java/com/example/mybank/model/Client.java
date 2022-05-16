@@ -3,6 +3,7 @@ package com.example.mybank.model;
 public class Client {
     private Integer id;
     private String name, cpf, date, email, phone, senha;
+    private Double saldo;
     //Endereço
     private String cep, state, city, district, address, number;
     //Renda
@@ -10,6 +11,14 @@ public class Client {
     Double patrimonioLiquido;
 
     public Client() {
+    }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
     }
 
     public Double getRendaMensal() {
