@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/back_img"
             android:text="@string/criar_conta"
             android:textAllCaps="true"
             android:textColor="@color/laranja"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/back_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/back_img" />
@@ -53,6 +53,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/nome_completo"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/name_edt"
             app:layout_constraintStart_toStartOf="@id/name_edt"
             app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -75,6 +76,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/cpf"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/cpf_edt"
             app:layout_constraintStart_toStartOf="@id/cpf_edt" />
 
@@ -99,6 +101,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/data_de_nascimento"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/data_edt"
             app:layout_constraintStart_toStartOf="@id/data_edt" />
 
@@ -123,6 +126,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/email"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/email_edt"
             app:layout_constraintStart_toStartOf="@id/email_edt" />
 
@@ -144,6 +148,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/celular"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/phone_edt"
             app:layout_constraintStart_toStartOf="@id/phone_edt" />
 

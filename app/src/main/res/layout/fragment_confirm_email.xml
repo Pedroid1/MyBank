@@ -46,29 +46,16 @@
             app:layout_constraintTop_toBottomOf="@id/back_img" />
 
         <TextView
-            android:id="@+id/codigo_enviado_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="@string/codigo_enviado"
-            android:textColor="@color/black2"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <TextView
             android:id="@+id/codigo_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:textSize="16sp"
             android:layout_marginTop="15dp"
-            android:text="@string/codigo"
+            android:text="@string/codigo_enviado"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/codigo_enviado_txt" />
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <EditText
             android:id="@+id/codigo_edt"
@@ -77,6 +64,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:inputType="number"
+            android:layout_marginTop="5dp"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

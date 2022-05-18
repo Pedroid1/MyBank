@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,10 +27,10 @@
             android:layout_height="wrap_content"
             android:text="@string/senha_do_app"
             android:textAllCaps="true"
-            app:layout_constraintBottom_toBottomOf="@id/back_img"
             android:textColor="@color/laranja"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/back_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/back_img" />
@@ -54,6 +54,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/senha"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider" />
 
@@ -78,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/confirmar_senha"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/senha_1_edt"
             app:layout_constraintTop_toBottomOf="@id/senha_1_edt" />
 

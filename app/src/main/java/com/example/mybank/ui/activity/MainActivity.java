@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //MyDatabaseHelper myDb = new MyDatabaseHelper(this);
-        //myDb.deleteAllData();
+        MyDatabaseHelper myDb = new MyDatabaseHelper(this);
+        myDb.deleteAllData();
 
         //FullScreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
