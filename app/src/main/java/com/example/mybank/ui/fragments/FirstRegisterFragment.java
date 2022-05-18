@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,7 +64,7 @@ public class FirstRegisterFragment extends Fragment {
                     EditTextError.setEdtError(bind.cpfEdt, "Cpf inválido", requireContext());
                     return;
                 }
-                if(myDB.checkCpf(cpf)) {
+                if(myDB.checkCpfIsLogged(cpf)) {
                     EditTextError.setEdtError(bind.cpfEdt, "Cpf já cadastrado no sistema", requireContext());
                     return;
                 }
@@ -81,7 +80,7 @@ public class FirstRegisterFragment extends Fragment {
                     EditTextError.setEdtError(bind.emailEdt, "Email inválido", requireContext());
                     return;
                 }
-                if(myDB.checkEmail(email)) {
+                if(myDB.checkEmailIsLogged(email)) {
                     EditTextError.setEdtError(bind.emailEdt, "Esse email pertence a outra conta!", requireContext());
                     return;
                 }

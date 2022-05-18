@@ -29,9 +29,14 @@
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/drawable/perfil_background.xml" value="0.1775" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_confirm_email.xml" value="0.1" />
+        <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_edit_informations.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_first_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_home.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_make_pix.xml" value="0.264" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_second_endereco_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/fragment_senha.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/pearaujo/AndroidStudioProjects/MyBank/app/src/main/res/layout/perfil_background.xml" value="0.25416666666666665" />
       </map>
     </option>

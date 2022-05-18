@@ -40,4 +40,5 @@
     <string name="renda_mensal">Renda mensal</string>
     <string name="patrimonio_liquido">Patrimônio líquido</string>
     <string name="patrimonio">Patrimonio</string>
+    <string name="chave_pix">Chave pix</string>
 </resources>

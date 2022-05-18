@@ -19,23 +19,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "client_name";
     private static final String COLUMN_CPF = "client_cpf";
-    private  static final String COLUMN_DATE = "client_date";
-    private  static final String COLUMN_EMAIL = "client_email";
-    private  static final String COLUMN_PHONE = "client_phone";
-    private  static final String COLUMN_PASSWORD = "client_password";
-    private  static final String COLUMN_SALDO = "client_saldo";
+    private static final String COLUMN_DATE = "client_date";
+    private static final String COLUMN_EMAIL = "client_email";
+    private static final String COLUMN_PHONE = "client_phone";
+    private static final String COLUMN_PASSWORD = "client_password";
+    private static final String COLUMN_SALDO = "client_saldo";
 
     //ENDEREÇO
-    private  static final String COLUMN_CEP = "client_cep";
-    private  static final String COLUMN_STATE = "client_state";
-    private  static final String COLUMN_CITY = "client_city";
-    private  static final String COLUMN_DISTRICT = "client_district";
-    private  static final String COLUMN_ADDRESS = "client_address";
-    private  static final String COLUMN_NUMBER = "client_number";
+    private static final String COLUMN_CEP = "client_cep";
+    private static final String COLUMN_STATE = "client_state";
+    private static final String COLUMN_CITY = "client_city";
+    private static final String COLUMN_DISTRICT = "client_district";
+    private static final String COLUMN_ADDRESS = "client_address";
+    private static final String COLUMN_NUMBER = "client_number";
 
     //RENDA
-    private  static final String COLUMN_RENDA_MENSAL = "client_renda";
-    private  static final String COLUMN_PATRIMONIO_LIQUIDO = "client_patrimonio";
+    private static final String COLUMN_RENDA_MENSAL = "client_renda";
+    private static final String COLUMN_PATRIMONIO_LIQUIDO = "client_patrimonio";
+
+    private static final String COLUMN_CHAVE_PIX = "client_chav_pix";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,7 +63,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_NUMBER + " TEXT, " +
                         COLUMN_RENDA_MENSAL + " REAL, " +
                         COLUMN_PATRIMONIO_LIQUIDO + " REAL, " +
-                        COLUMN_SALDO + " REAL);";
+                        COLUMN_SALDO + " REAL, " +
+                        COLUMN_CHAVE_PIX + " TEXT);";
 
         db.execSQL(query);
     }
@@ -72,18 +75,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean checkEmail(String email) {
+    public boolean checkEmailIsLogged(String email) {
         String query = "SELECT " + COLUMN_EMAIL + " FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = '" + email + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        if(db != null) {
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
-        if(cursor != null) {
-            while(cursor.moveToNext()) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 String emailBD = cursor.getString(0);
-                if(emailBD.equals(email))
+                if (emailBD.equals(email))
                     return true;
                 else
                     return false;
@@ -92,40 +95,51 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean userLogin(String email, String senha) {
+    public Client findClientPorChavePix(String chave) {
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_CHAVE_PIX + " = '" + chave + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+
+        return getClientData(cursor);
+    }
+
+    public boolean userLoginAuth(String email, String senha) {
         String query = "SELECT " + COLUMN_EMAIL + ", " + COLUMN_PASSWORD + " FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = '" + email + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        if(db != null) {
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
-        if(cursor != null) {
-            while(cursor.moveToNext()) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 String emailBD = cursor.getString(0);
                 String senhaBD = cursor.getString(1);
-                if(emailBD.equals(email)) {
+                if (emailBD.equals(email)) {
                     return senhaBD.equals(senha);
-                }
-                else
+                } else
                     return false;
             }
         }
         return false;
     }
 
-    public boolean checkCpf(String cpf) {
+    public boolean checkCpfIsLogged(String cpf) {
         String query = "SELECT " + COLUMN_CPF + " FROM " + TABLE_NAME + " WHERE " + COLUMN_CPF + " = '" + cpf + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        if(db != null) {
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
-        if(cursor != null) {
-            while(cursor.moveToNext()) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 String cpfDB = cursor.getString(0);
-                if(cpfDB.equals(cpf))
+                if (cpfDB.equals(cpf))
                     return true;
                 else
                     return false;
@@ -141,14 +155,136 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
-        if(db != null) {
+        if (db != null) {
             cursor = db.rawQuery(query, null);
         }
-        if(cursor != null) {
+
+        return getClientData(cursor);
+    }
+
+    public boolean addClient(Client newClient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NAME, newClient.getName());
+        cv.put(COLUMN_CPF, newClient.getCpf());
+        cv.put(COLUMN_DATE, newClient.getDate());
+        cv.put(COLUMN_EMAIL, newClient.getEmail());
+        cv.put(COLUMN_PHONE, newClient.getPhone());
+        cv.put(COLUMN_PASSWORD, newClient.getSenha());
+
+        cv.put(COLUMN_CEP, newClient.getCep());
+        cv.put(COLUMN_STATE, newClient.getState());
+        cv.put(COLUMN_CITY, newClient.getCity());
+        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
+        cv.put(COLUMN_ADDRESS, newClient.getAddress());
+        cv.put(COLUMN_NUMBER, newClient.getName());
+
+        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
+        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
+        newClient.setChavePix(newClient.getEmail());
+        cv.put(COLUMN_CHAVE_PIX, newClient.getChavePix());
+
+        newClient.setSaldo(999.99d);
+        cv.put(COLUMN_SALDO, newClient.getSaldo());
+
+        Long result = db.insert(TABLE_NAME, null, cv);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Cursor readAllData() {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public Client findClientById(Integer id) {
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id + ";";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+
+        return getClientData(cursor);
+    }
+
+    public boolean updateSaldo(Integer id, Double saldo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_SALDO, saldo);
+
+        int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{id.toString()});
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean updateClient(Client newClient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME, newClient.getName());
+        cv.put(COLUMN_CPF, newClient.getCpf());
+        cv.put(COLUMN_DATE, newClient.getDate());
+        cv.put(COLUMN_EMAIL, newClient.getEmail());
+        cv.put(COLUMN_PHONE, newClient.getPhone());
+
+        cv.put(COLUMN_CEP, newClient.getCep());
+        cv.put(COLUMN_STATE, newClient.getState());
+        cv.put(COLUMN_CITY, newClient.getCity());
+        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
+        cv.put(COLUMN_ADDRESS, newClient.getAddress());
+
+        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
+        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
+        cv.put(COLUMN_SALDO, newClient.getSaldo());
+
+        int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{newClient.getId().toString()});
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteClientById(Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{id.toString()});
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void deleteAllData() {
+        String query = "DELETE FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+    }
+
+    private Client getClientData(Cursor cursor) {
+        if (cursor != null) {
             while (cursor.moveToNext()) {
                 Client currentClient = new Client();
                 Integer id;
-                String name, cpf, date, phone, senha;
+                String name, cpf, date, phone, senha, email, chavePix;
                 Double saldo;
                 //Endereço
                 String cep, state, city, district, address, number;
@@ -199,105 +335,5 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return null;
-    }
-
-    public boolean addClient(Client newClient) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_NAME, newClient.getName());
-        cv.put(COLUMN_CPF, newClient.getCpf());
-        cv.put(COLUMN_DATE, newClient.getDate());
-        cv.put(COLUMN_EMAIL, newClient.getEmail());
-        cv.put(COLUMN_PHONE, newClient.getPhone());
-        cv.put(COLUMN_PASSWORD, newClient.getSenha());
-
-        cv.put(COLUMN_CEP, newClient.getCep());
-        cv.put(COLUMN_STATE, newClient.getState());
-        cv.put(COLUMN_CITY, newClient.getCity());
-        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
-        cv.put(COLUMN_ADDRESS, newClient.getAddress());
-        cv.put(COLUMN_NUMBER, newClient.getName());
-
-        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
-        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
-
-        newClient.setSaldo(999.99d);
-        cv.put(COLUMN_SALDO, newClient.getSaldo());
-
-        Long result = db.insert(TABLE_NAME, null, cv);
-
-        if(result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = null;
-        if(db != null) {
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
-    }
-
-    public Cursor findClientById(Integer id) {
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id +";";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = null;
-        if(db != null) {
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
-    }
-
-    public boolean updateClient(Client newClient) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_NAME, newClient.getName());
-        cv.put(COLUMN_CPF, newClient.getCpf());
-        cv.put(COLUMN_DATE, newClient.getDate());
-        cv.put(COLUMN_EMAIL, newClient.getEmail());
-        cv.put(COLUMN_PHONE, newClient.getPhone());
-
-        cv.put(COLUMN_CEP, newClient.getCep());
-        cv.put(COLUMN_STATE, newClient.getState());
-        cv.put(COLUMN_CITY, newClient.getCity());
-        cv.put(COLUMN_DISTRICT, newClient.getDistrict());
-        cv.put(COLUMN_ADDRESS, newClient.getAddress());
-
-        cv.put(COLUMN_RENDA_MENSAL, newClient.getRendaMensal());
-        cv.put(COLUMN_PATRIMONIO_LIQUIDO, newClient.getPatrimonioLiquido());
-        cv.put(COLUMN_SALDO, newClient.getSaldo());
-
-        int result = db.update(TABLE_NAME, cv, COLUMN_ID + "=?", new String[]{newClient.getId().toString()});
-        if(result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public boolean deleteClientById(Integer id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        int result = db.delete(TABLE_NAME,COLUMN_ID + "=?", new String[]{id.toString()});
-        if(result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void deleteAllData() {
-        String query = "DELETE FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(query);
     }
 }

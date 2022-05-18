@@ -54,9 +54,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     new Handler().postDelayed(() -> {
 
-                        if(myDB.checkEmail(email)) {
+                        if(myDB.checkEmailIsLogged(email)) {
 
-                            if(myDB.userLogin(email, senha)) {
+                            if(myDB.userLoginAuth(email, senha)) {
                                 progressButton.buttonFinishedSuccess();
 
                                 new Handler().postDelayed(() -> {

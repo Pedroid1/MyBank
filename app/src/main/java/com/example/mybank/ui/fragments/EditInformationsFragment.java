@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mybank.R;
 import com.example.mybank.databinding.FragmentEditInformationsBinding;
 import com.example.mybank.ui.LoadingDialog;
 import com.example.mybank.ui.utils.CpfCnpjUtils;
@@ -82,7 +80,7 @@ public class EditInformationsFragment extends Fragment {
                         if (!CpfCnpjUtils.isValid(edition))
                             EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF inválido", requireContext());
                         else {
-                            if (viewModel.getMyDB().checkEmail(edition)) {
+                            if (viewModel.getMyDB().checkEmailIsLogged(edition)) {
                                 EditTextError.setEdtError(bind.editarInformationEdtMask, "CPF cadastrado em outra conta", requireContext());
                             } else {
                                 viewModel.getCurrentClient().setCpf(edition);
@@ -106,7 +104,7 @@ public class EditInformationsFragment extends Fragment {
                     if (!StringUtils.validateEmail(edition))
                         EditTextError.setEdtError(bind.editarInformationEdt, "Email inválido", requireContext());
                     else {
-                        if (viewModel.getMyDB().checkEmail(edition)) {
+                        if (viewModel.getMyDB().checkEmailIsLogged(edition)) {
                             EditTextError.setEdtError(bind.editarInformationEdt, "Email cadastrado em outra conta", requireContext());
                         } else {
                             viewModel.getCurrentClient().setEmail(edition);

@@ -33,11 +33,22 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        viewModel.setValor("");
+        viewModel.setChavePix("");
         updateUi();
+
+        bind.pagamentoCard.setOnClickListener(view1 -> {
+            replacePixFragment();
+        });
 
         bind.personImg.setOnClickListener(view1 -> {
             replaceProfileFragment();
         });
+    }
+
+    private void replacePixFragment() {
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, new MakePixFragment()).addToBackStack(null).commit();
     }
 
     private void updateUi() {

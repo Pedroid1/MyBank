@@ -15,6 +15,8 @@ public class HomeViewModel extends ViewModel {
     private MyDatabaseHelper myDB;
 
     private Client currentClient = null;
+    private Client recebedorPix = null;
+    private Double valorPix = null;
 
     private String optionEdit = null;
 
@@ -29,6 +31,41 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> renda = new MutableLiveData<>();
     private MutableLiveData<String> patrimonio = new MutableLiveData<>();
+
+    private MutableLiveData<String> valor = new MutableLiveData<>();
+    private MutableLiveData<String> chave = new MutableLiveData<>();
+
+    public void setValor(String valor) {
+        this.valor.setValue(valor);
+    }
+
+    public void setChavePix(String chave) {
+        this.chave.setValue(chave);
+    }
+
+    public Double getValorPix() {
+        return valorPix;
+    }
+
+    public void setValorPix(Double valorPix) {
+        this.valorPix = valorPix;
+    }
+
+    public Client getRecebedorPix() {
+        return recebedorPix;
+    }
+
+    public void setRecebedorPix(Client recebedorPix) {
+        this.recebedorPix = recebedorPix;
+    }
+
+    public LiveData<String> getValor() {
+        return valor;
+    }
+
+    public LiveData<String> getChavePix() {
+        return chave;
+    }
 
     public LiveData<String> getRenda() {
         return renda;

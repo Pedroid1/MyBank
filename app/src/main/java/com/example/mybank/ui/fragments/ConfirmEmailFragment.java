@@ -55,14 +55,14 @@ public class ConfirmEmailFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(RegisterViewModel.class);
 
-        sendEmail();
-
         finishBtn = view.findViewById(R.id.finish_btn);
         ProgressButton progressButton = new ProgressButton(requireContext(),
                 "Confirmar e-mail",
                 "Código inválido",
                 "E-mail confirmado",
                 finishBtn);
+
+        sendEmail();
 
         finishBtn.setOnClickListener(view1 -> {
             finishBtn.setClickable(false);

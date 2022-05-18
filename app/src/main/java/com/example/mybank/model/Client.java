@@ -2,13 +2,21 @@ package com.example.mybank.model;
 
 public class Client {
     private Integer id;
-    private String name, cpf, date, email, phone, senha;
+    private String name, cpf, date, email, phone, senha, chavePix;
     private Double saldo;
     //Endereço
     private String cep, state, city, district, address, number;
     //Renda
     Double rendaMensal;
     Double patrimonioLiquido;
+
+    public String getChavePix() {
+        return chavePix;
+    }
+
+    public void setChavePix(String chavePix) {
+        this.chavePix = chavePix;
+    }
 
     public Client() {
     }
